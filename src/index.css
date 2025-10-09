@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: only light;
+}
+
+body {
+  @apply bg-light text-slate-900 font-body antialiased;
+}
+
+.font-display {
+  font-family: 'Poppins', ui-sans-serif, system-ui;
+}
+
+.font-body {
+  font-family: 'Inter', ui-sans-serif, system-ui;
+}
+
+.section-title {
+  @apply text-3xl font-semibold text-dark md:text-4xl;
+}
+
+.container {
+  @apply mx-auto w-full max-w-6xl px-6;
+}
