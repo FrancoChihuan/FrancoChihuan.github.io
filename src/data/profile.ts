@@ -42,28 +42,27 @@ export type Education = {
 
 export const profile = {
   name: 'Franco Chihuan Sánchez',
-  role: 'Estudiante de Ingeniería de Sistemas · Backend Developer · Fundador de Train Smart',
+  role: 'Estudiante de Ingeniería de Sistemas · Universidad San Ignacio de Loyola · 8.º ciclo',
   headline:
     'Information Systems Engineering Student | Backend Developer | Founder of Train Smart',
   summary:
     'Estudiante de Ingeniería de Sistemas con conocimientos sólidos en desarrollo backend utilizando Python (Django Rest Framework) y experiencia en tecnologías frontend como React, HTML y CSS. Manejo bases de datos relacionales (MySQL, SQL Server, Oracle) y no relacionales como MongoDB. Busco potenciar productos digitales con arquitecturas limpias y APIs seguras.',
-  location: 'Perú',
-  availability: 'En busca de oportunidades como Backend Developer junior y proyectos donde aplicar Django REST.',
+  location: 'Lima, Perú',
+  availability: 'En busca de prácticas pre profesionales como Backend Developer junior.',
   contact: {
-    email: 'actualiza-tu-correo@ejemplo.com',
-    phone: 'Actualiza tu número',
+    email: 'francochisan31@gmail.com',
+    phone: '+51 904 487 497',
   },
   socials: [{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' }] satisfies Link[],
-  languages: ['Español (nativo)', 'Inglés intermedio'],
+  languages: ['Inglés B1 - B2', 'Español (nativo)'],
 }
 
 export const skills: SkillCategory[] = [
   {
     title: 'Backend',
     items: [
-      'Python',
       'Django REST Framework',
-      'Diseño de APIs',
+      'Node.js',
       'Autenticación y seguridad',
       'Arquitectura limpia',
     ],
@@ -78,7 +77,7 @@ export const skills: SkillCategory[] = [
   },
   {
     title: 'Herramientas y prácticas',
-    items: ['Git & GitHub', 'CI/CD básico', 'AWS (fundamentos)', 'Documentación técnica', 'Trabajo en equipo'],
+    items: ['Git & GitHub', 'Docker', 'Documentación técnica', 'Trabajo en equipo'],
   },
 ]
 
@@ -169,5 +168,23 @@ export const certifications: Certification[] = [
     issuer: 'Udemy',
     date: 'Octubre 2025',
     credentialId: 'UC-1ed70982-0d2b-444d-8c8a-ddb9990c8f0a',
+  },
+  {
+    title: 'CLOUD COMPUTING: AWS - AZURE - GOOGLE CLOUD',
+    issuer: 'Universidad Nacional de Ingeniería',
+    date: 'Febrero 2025',
+    credentialId: '017 - 0016705',
+  },
+  {
+    title: 'SQL SERVER - Base de datos',
+    issuer: 'Universidad Nacional de Ingeniería',
+    date: 'Enero 2025',
+    credentialId: '017 - 0020988',
+  },
+  {
+    title: 'Machine Learning con Python',
+    issuer: 'Universidad Nacional de Ingeniería',
+    date: 'Febrero 2025',
+    credentialId: '017 -0028828',
   },
 ]

@@ -173,7 +173,7 @@ function App() {
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  Conectemos
+                  Contactame
                 </motion.a>
               </div>
             </motion.div>
@@ -190,7 +190,7 @@ function App() {
                 transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
               />
               <h3 className="font-display text-lg text-white">
-                Impulso productos con APIs bien diseñadas
+                Impulso soluciones tecnológicas escalables
               </h3>
               <p className="mt-3 text-sm text-slate-300">
                 Me enfoco en crear experiencias robustas y agradables, integrando buenas
@@ -203,8 +203,8 @@ function App() {
                 >
                   <span className="mt-1 text-lg text-primary-200">🧠</span>
                   <p>
-                    Diseño APIs escalables con Django REST Framework, documentadas y listas
-                    para integrarse con cualquier frontend.
+                    Desarrollo y mantengo APIs seguras y eficientes con Django REST Framework o NodeJS, 
+                    integradas con frontend en React y bases de datos relacionales.
                   </p>
                 </motion.div>
                 <motion.div
@@ -213,13 +213,13 @@ function App() {
                 >
                   <span className="mt-1 text-lg text-primary-200">⚙️</span>
                   <p>
-                    Automatizo flujos con CI/CD y despliegues en AWS para asegurar calidad
-                    continua.
+                    Automatizo procesos, optimizo consultas y despliego proyectos en la nube con AWS y Docker, 
+                    priorizando rendimiento y mantenibilidad.
                   </p>
                 </motion.div>
               </div>
               <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-200">
-                {['Django REST', 'React', 'PostgreSQL', 'AWS', 'GitHub'].map((item) => (
+                {['Django REST', 'NodeJS', 'MySQL', 'React', 'PostgreSQL', 'AWS', 'Git-GitHub'].map((item) => (
                   <span key={item} className="rounded-full bg-primary-500/15 px-3 py-1">
                     {item}
                   </span>
@@ -235,7 +235,7 @@ function App() {
           id="sobre-mi"
           eyebrow="Trayectoria"
           title="Sobre mí"
-          description="Estudiante de Ingeniería de Sistemas apasionado por construir productos backend sólidos respaldados por interfaces modernas."
+          description="Soy estudiante de Ingeniería de Sistemas con enfoque en el desarrollo backend y arquitecturas escalables. Me apasiona construir soluciones eficientes combinando Python (Django REST Framework), React y bases de datos como MySQL, SQL Server y PostgreSQL."
         >
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <motion.div
@@ -246,9 +246,8 @@ function App() {
               viewport={{ once: true, amount: 0.3 }}
             >
               {[
-                'Combino Python, Django Rest Framework y React para entregar soluciones completas, desde el diseño de la base de datos hasta la experiencia de usuario.',
-                'Disfruto colaborar con equipos multidisciplinarios, documentar y versionar cada avance, y transformar datos en conocimiento accionable.',
-                'En mis tiempos libres lidero Train Smart, un proyecto que promueve hábitos saludables mediante tecnología accesible y centrada en el usuario.',
+                'Aplico buenas prácticas de control de versiones con Git/GitHub, despliegue en la nube con AWS y Docker, y automatización de flujos CI/CD para asegurar calidad y rendimiento.',
+                'Disfruto trabajar en proyectos colaborativos, aprender nuevas tecnologías y transformar ideas en productos funcionales. Actualmente busco prácticas preprofesionales en desarrollo de software o TI para seguir creciendo y aportar valor real a los equipos donde participe.',
               ].map((paragraph) => (
                 <motion.p key={paragraph} variants={fadeInUp}>
                   {paragraph}
