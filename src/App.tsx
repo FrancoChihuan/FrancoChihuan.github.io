@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import { motion } from 'framer-motion'
 import {
+  certifications,
   education,
   experiences,
   profile,
@@ -14,17 +16,40 @@ const navItems = [
   { label: 'Habilidades', href: '#habilidades' },
   { label: 'Experiencia', href: '#experiencia' },
   { label: 'Proyectos', href: '#proyectos' },
+  { label: 'Certificaciones', href: '#certificaciones' },
   { label: 'Contacto', href: '#contacto' },
 ]
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const staggerChildren = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+}
+
 const SocialLink = ({ link }: { link: Link }) => (
-  <a
+  <motion.a
     href={link.href}
-    className="inline-flex items-center gap-2 rounded-full border border-primary-200/60 px-4 py-2 text-sm font-medium text-primary-800 transition hover:-translate-y-0.5 hover:border-primary-400 hover:bg-primary-50 hover:text-primary-900"
+    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-primary-400/60 hover:bg-primary-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300"
+    whileHover={{ y: -3 }}
+    whileTap={{ scale: 0.96 }}
   >
     <span>{link.label}</span>
     <span aria-hidden="true">↗</span>
-  </a>
+  </motion.a>
+)
+
+const InfoChip = ({ label }: { label: string }) => (
+  <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-primary-200">
+    {label}
+  </span>
 )
 
 const SectionWrapper = ({
@@ -40,344 +65,462 @@ const SectionWrapper = ({
   description?: string
   children: ReactNode
 }) => (
-  <section id={id} className="scroll-mt-24">
-    <div className="container">
+  <motion.section
+    id={id}
+    className="relative scroll-mt-24"
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.2 }}
+    variants={fadeInUp}
+  >
+    <div className="container relative">
       <div className="mb-10 flex flex-col gap-3">
-        <span className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">
-          {eyebrow}
-        </span>
-        <h2 className="font-display text-3xl text-dark md:text-4xl">{title}</h2>
+        <InfoChip label={eyebrow} />
+        <h2 className="font-display text-3xl text-white md:text-4xl">{title}</h2>
         {description ? (
-          <p className="max-w-3xl text-base text-slate-600 md:text-lg">
-            {description}
-          </p>
+          <p className="max-w-3xl text-base text-slate-300 md:text-lg">{description}</p>
         ) : null}
       </div>
       {children}
     </div>
-  </section>
+  </motion.section>
 )
 
 function App() {
-  return (
-    <div className="relative min-h-screen bg-light">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[500px] bg-gradient-to-b from-primary-100/70 via-primary-50/40 to-transparent" />
+  const email =
+    profile.contact.email && !profile.contact.email.includes('actualiza')
+      ? profile.contact.email
+      : undefined
+  const phone =
+    profile.contact.phone && !profile.contact.phone.toLowerCase().includes('actualiza')
+      ? profile.contact.phone
+      : undefined
 
-      <header id="inicio" className="relative z-10 bg-transparent">
-        <div className="container flex flex-col gap-10 py-8 md:flex-row md:items-center md:justify-between">
-          <span className="font-display text-xl font-semibold text-primary-800">
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-dark text-slate-200">
+      <div className="pointer-events-none absolute inset-0 -z-20 bg-grid-pattern bg-[length:22px_22px] opacity-40" />
+      <div className="pointer-events-none absolute inset-x-0 top-[-20%] -z-10 h-[520px] bg-radial-glow opacity-80" />
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-40 top-16 h-80 w-80 rounded-full bg-primary-500/30 blur-3xl" />
+        <div className="absolute -right-20 top-32 h-72 w-72 rounded-full bg-primary-700/25 blur-3xl" />
+        <div className="absolute bottom-10 left-1/3 h-64 w-64 rounded-full bg-blue-900/25 blur-3xl" />
+      </div>
+
+      <header id="inicio" className="relative z-10">
+        <div className="container flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
+          <motion.span
+            className="font-display text-2xl font-semibold text-white"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             {profile.name}
-          </span>
-          <nav className="flex flex-wrap gap-4 text-sm font-medium text-slate-700">
+          </motion.span>
+          <motion.nav
+            className="flex flex-wrap justify-end gap-3 text-sm font-medium text-slate-300"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-4 py-2 transition hover:bg-primary-100/60 hover:text-primary-900"
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-primary-400/70 hover:bg-primary-400/10 hover:text-white"
               >
                 {item.label}
               </a>
             ))}
-          </nav>
+          </motion.nav>
         </div>
 
-        <div className="container grid gap-12 pb-20 pt-12 md:grid-cols-[1.2fr_0.8fr] md:items-center">
-          <div className="space-y-6">
-            <span className="inline-flex items-center gap-2 rounded-full bg-primary-100/80 px-4 py-2 text-sm font-medium text-primary-700 shadow-sm ring-1 ring-primary-200/70">
-              {profile.role}
-            </span>
-            <h1 className="font-display text-4xl leading-tight text-dark md:text-5xl">
-              Hola, soy {profile.name}
-            </h1>
-            <p className="text-lg text-slate-600">{profile.headline}</p>
-            <p className="text-base text-slate-600">{profile.summary}</p>
-            <div className="flex flex-wrap gap-3 text-sm text-slate-500">
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-slate-200">
-                📍 {profile.location}
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm ring-1 ring-slate-200">
-                ✅ {profile.availability}
-              </span>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="#proyectos"
-                className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:-translate-y-0.5 hover:bg-primary-700"
-              >
-                Ver proyectos destacados
-                <span aria-hidden="true">→</span>
-              </a>
-              <a
-                href="#contacto"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-primary-700 shadow-sm ring-1 ring-primary-200 transition hover:-translate-y-0.5 hover:bg-primary-50"
-              >
-                Hablemos
-              </a>
-            </div>
-          </div>
+        <div className="container relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface/70 px-8 py-14 shadow-[0_40px_120px_rgba(29,95,255,0.24)] backdrop-blur">
+          <div className="pointer-events-none absolute -left-10 top-16 h-48 w-48 rounded-full bg-primary-500/40 blur-3xl" />
+          <div className="pointer-events-none absolute -right-8 top-6 h-32 w-32 rounded-full bg-primary-700/30 blur-3xl" />
+          <div className="pointer-events-none absolute bottom-4 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-primary-400/35 blur-2xl" />
 
-          <div className="relative flex h-full w-full items-center justify-center">
-            <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary-100 via-primary-200/70 to-primary-300/60 blur-3xl" />
-            <div className="w-full rounded-3xl bg-white p-8 shadow-xl ring-1 ring-slate-200/70">
-              <h3 className="font-display text-lg text-dark">En qué estoy trabajando</h3>
-              <p className="mt-3 text-sm text-slate-600">
-                Actualmente investigo cómo combinar analítica de datos en tiempo real
-                con patrones de diseño escalables para resolver retos en educación y
-                servicios.
+          <motion.div
+            className="grid gap-12 md:grid-cols-[1.2fr_0.8fr] md:items-center"
+            variants={staggerChildren}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={fadeInUp} className="space-y-6">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary-400/30 bg-primary-500/10 px-4 py-2 text-sm font-medium text-primary-200 shadow-glow-primary">
+                {profile.role}
+              </span>
+              <h1 className="font-display text-4xl leading-tight text-white md:text-5xl">
+                Hola, soy {profile.name.split(' ')[0]}
+              </h1>
+              <p className="text-lg text-slate-300">{profile.summary}</p>
+              <div className="flex flex-wrap gap-3 text-sm text-slate-300">
+                <InfoChip label={`📍 ${profile.location}`} />
+                <InfoChip label={`🚀 ${profile.availability}`} />
+              </div>
+              <div className="flex flex-wrap gap-4">
+                <motion.a
+                  href="#proyectos"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-primary transition hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Ver proyectos destacados
+                  <span aria-hidden="true">→</span>
+                </motion.a>
+                <motion.a
+                  href="#contacto"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300"
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Conectemos
+                </motion.a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="relative rounded-3xl border border-white/10 bg-surfaceElevated/80 p-8 shadow-glow-surface backdrop-blur"
+            >
+              <motion.img
+                src="/vite.svg"
+                alt=""
+                className="pointer-events-none absolute -right-6 -top-8 h-24 w-24 opacity-10"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+              />
+              <h3 className="font-display text-lg text-white">
+                Impulso productos con APIs bien diseñadas
+              </h3>
+              <p className="mt-3 text-sm text-slate-300">
+                Me enfoco en crear experiencias robustas y agradables, integrando buenas
+                prácticas backend, despliegues en la nube y componentes frontend modernos.
               </p>
-              <div className="mt-5 space-y-3 text-sm text-slate-600">
-                <div className="flex items-start gap-3 rounded-2xl bg-primary-50/80 px-4 py-3">
-                  <span className="mt-1 text-lg">✨</span>
+              <div className="mt-5 space-y-3 text-sm text-slate-300">
+                <motion.div
+                  className="flex items-start gap-3 rounded-2xl border border-white/5 bg-primary-500/10 px-4 py-3"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <span className="mt-1 text-lg text-primary-200">🧠</span>
                   <p>
-                    Mentor de estudiantes en proyectos ágiles y buenas prácticas de
-                    desarrollo.
+                    Diseño APIs escalables con Django REST Framework, documentadas y listas
+                    para integrarse con cualquier frontend.
                   </p>
-                </div>
-                <div className="flex items-start gap-3 rounded-2xl bg-primary-50/80 px-4 py-3">
-                  <span className="mt-1 text-lg">🧪</span>
+                </motion.div>
+                <motion.div
+                  className="flex items-start gap-3 rounded-2xl border border-white/5 bg-primary-500/10 px-4 py-3"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <span className="mt-1 text-lg text-primary-200">⚙️</span>
                   <p>
-                    Experimentando con pruebas automatizadas end-to-end y pipelines CI/CD.
+                    Automatizo flujos con CI/CD y despliegues en AWS para asegurar calidad
+                    continua.
                   </p>
-                </div>
+                </motion.div>
               </div>
-              <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-700">
-                {['React 19', 'TypeScript', 'Tailwind CSS', 'Node.js', 'Scrum'].map(
-                  (item) => (
-                    <span key={item} className="rounded-full bg-primary-100 px-3 py-1">
-                      {item}
-                    </span>
-                  ),
-                )}
+              <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-200">
+                {['Django REST', 'React', 'PostgreSQL', 'AWS', 'GitHub'].map((item) => (
+                  <span key={item} className="rounded-full bg-primary-500/15 px-3 py-1">
+                    {item}
+                  </span>
+                ))}
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </header>
 
-      <main className="relative z-10 space-y-24 pb-24">
+      <main className="relative z-10 space-y-24 pb-32 pt-16">
         <SectionWrapper
           id="sobre-mi"
           eyebrow="Trayectoria"
           title="Sobre mí"
-          description="Soy curioso, autodidacta y disfruto resolver problemas complejos construyendo productos que la gente realmente quiera usar."
+          description="Estudiante de Ingeniería de Sistemas apasionado por construir productos backend sólidos respaldados por interfaces modernas."
         >
           <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="space-y-6">
-              <p className="text-base text-slate-600">
-                Durante la carrera he reforzado una visión integral de la ingeniería,
-                abarcando desde análisis de requerimientos hasta despliegues en la nube.
-                Mi enfoque es construir soluciones escalables que mantengan la calidad
-                incluso cuando los equipos o usuarios crecen.
-              </p>
-              <p className="text-base text-slate-600">
-                Combino metodologías ágiles, documentación clara y métricas para medir
-                impacto. Me motiva asumir retos donde pueda aprender tecnologías nuevas,
-                liderar iniciativas y aportar a equipos que valoran la colaboración.
-              </p>
-              <div className="grid gap-4 rounded-3xl bg-white p-6 shadow-lg shadow-primary-200/30 ring-1 ring-primary-100/60 sm:grid-cols-2">
-                <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">
-                    Ubicación
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-dark">{profile.location}</p>
-                </div>
-                <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">
-                    Disponibilidad
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-dark">{profile.availability}</p>
-                </div>
-                <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">
-                    Email
-                  </span>
-                  <a
-                    href={`mailto:${profile.contact.email}`}
-                    className="mt-2 block text-sm font-medium text-primary-700 hover:underline"
-                  >
-                    {profile.contact.email}
-                  </a>
-                </div>
-                <div>
-                  <span className="text-xs font-semibold uppercase tracking-[0.3em] text-primary-500">
-                    Teléfono
-                  </span>
-                  <p className="mt-2 text-sm font-medium text-dark">{profile.contact.phone}</p>
-                </div>
-              </div>
-            </div>
+            <motion.div
+              className="space-y-6 text-base text-slate-300"
+              variants={staggerChildren}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              {[
+                'Combino Python, Django Rest Framework y React para entregar soluciones completas, desde el diseño de la base de datos hasta la experiencia de usuario.',
+                'Disfruto colaborar con equipos multidisciplinarios, documentar y versionar cada avance, y transformar datos en conocimiento accionable.',
+                'En mis tiempos libres lidero Train Smart, un proyecto que promueve hábitos saludables mediante tecnología accesible y centrada en el usuario.',
+              ].map((paragraph) => (
+                <motion.p key={paragraph} variants={fadeInUp}>
+                  {paragraph}
+                </motion.p>
+              ))}
 
-            <div className="rounded-3xl bg-dark px-6 py-8 text-white shadow-xl">
-              <h3 className="font-display text-xl">Formación</h3>
-              <p className="mt-2 text-sm text-white/80">{education.program}</p>
-              <p className="mt-1 text-sm text-white/60">
+              <motion.div
+                variants={fadeInUp}
+                className="grid gap-4 rounded-3xl border border-white/10 bg-surfaceElevated/80 p-6 shadow-inner shadow-black/40 backdrop-blur"
+              >
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.35em] text-primary-200">
+                    Idiomas
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-white">
+                    {profile.languages.join(' · ')}
+                  </p>
+                </div>
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.35em] text-primary-200">
+                    Enfoque actual
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-white">
+                    Backend con Python, despliegues en AWS y analítica deportiva aplicada.
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              className="glass-panel border border-white/10 p-8 text-slate-200"
+            >
+              <h3 className="font-display text-xl text-white">Formación</h3>
+              <p className="mt-2 text-sm text-primary-100">{education.program}</p>
+              <p className="mt-1 text-sm text-slate-300">
                 {education.school} · {education.period}
               </p>
-              <ul className="mt-6 space-y-3 text-sm text-white/80">
+              <ul className="mt-6 space-y-3 text-sm text-slate-300">
                 {education.details.map((detail) => (
                   <li key={detail} className="flex items-start gap-3">
-                    <span className="mt-1 text-base text-accent">•</span>
+                    <span className="mt-1 text-base text-primary-200">•</span>
                     <span>{detail}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
         </SectionWrapper>
 
         <SectionWrapper
           id="habilidades"
-          eyebrow="Stack"
-          title="Tecnologías y habilidades destacadas"
-          description="Me muevo con soltura entre frontend, backend y gestión de proyectos para entregar soluciones end-to-end."
+          eyebrow="Stack principal"
+          title="Tecnologías y habilidades que domino"
+          description="Un stack que combina diseño de APIs, bases de datos robustas y experiencias frontend modernas."
         >
-          <div className="grid gap-6 md:grid-cols-2">
+          <motion.div
+            className="grid gap-6 md:grid-cols-2"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {skills.map((category) => (
-              <div
+              <motion.div
                 key={category.title}
-                className="rounded-3xl bg-white p-6 shadow-md ring-1 ring-slate-200/70"
+                variants={fadeInUp}
+                whileHover={{ y: -6 }}
+                className="glass-panel border border-white/10 p-6"
               >
-                <h3 className="font-display text-lg text-dark">{category.title}</h3>
-                <div className="mt-4 flex flex-wrap gap-2 text-sm text-slate-600">
+                <h3 className="font-display text-lg text-white">{category.title}</h3>
+                <div className="mt-4 flex flex-wrap gap-2 text-sm text-primary-100">
                   {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full bg-primary-50 px-3 py-1 font-medium text-primary-700"
-                    >
+                    <span key={item} className="rounded-full bg-primary-500/10 px-3 py-1">
                       {item}
                     </span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </SectionWrapper>
 
         <SectionWrapper
           id="experiencia"
           eyebrow="Experiencia"
-          title="Experiencias que me han formado"
-          description="Liderazgo técnico, mentoría y mucho aprender haciendo. Estas son algunas historias que marcaron mi crecimiento."
+          title="Experiencias que potencian mi visión"
+          description="Lidero iniciativas que unen tecnología y bienestar, y apoyo a pares para elevar el nivel técnico del equipo."
         >
-          <div className="space-y-6">
+          <motion.div
+            className="space-y-6"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+          >
             {experiences.map((experience) => (
-              <article
+              <motion.article
                 key={experience.title}
-                className="rounded-3xl bg-white p-8 shadow-lg shadow-primary-100/40 ring-1 ring-primary-100/70"
+                variants={fadeInUp}
+                whileHover={{ y: -4 }}
+                className="glass-panel border border-white/10 p-8"
               >
                 <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
                   <div>
-                    <h3 className="font-display text-xl text-dark">{experience.title}</h3>
-                    <p className="text-sm font-medium text-primary-700">
+                    <h3 className="font-display text-xl text-white">{experience.title}</h3>
+                    <p className="text-sm font-medium text-primary-100">
                       {experience.organization}
                     </p>
                   </div>
-                  <span className="text-sm font-medium text-slate-500">{experience.period}</span>
+                  <span className="text-sm font-medium text-slate-400">{experience.period}</span>
                 </div>
-                <p className="mt-4 text-base text-slate-600">{experience.description}</p>
-                <ul className="mt-4 space-y-3 text-sm text-slate-600">
+                <p className="mt-4 text-base text-slate-300">{experience.description}</p>
+                <ul className="mt-4 space-y-3 text-sm text-slate-300">
                   {experience.achievements.map((achievement) => (
                     <li key={achievement} className="flex items-start gap-3">
-                      <span className="mt-1 text-lg text-primary-500">▹</span>
+                      <span className="mt-1 text-lg text-primary-200">▹</span>
                       <span>{achievement}</span>
                     </li>
                   ))}
                 </ul>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
         </SectionWrapper>
 
         <SectionWrapper
           id="proyectos"
           eyebrow="Portafolio"
           title="Proyectos que cuentan mi historia"
-          description="Seleccioné proyectos académicos y personales donde apliqué ingeniería de software, trabajo en equipo y enfoque en usuarios."
+          description="Casos donde apliqué Python, Django y visualización de datos para resolver necesidades reales."
         >
-          <div className="grid gap-8 lg:grid-cols-2">
+          <motion.div
+            className="grid gap-8 lg:grid-cols-2"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             {projects.map((project) => (
-              <article
+              <motion.article
                 key={project.title}
-                className="group flex h-full flex-col rounded-3xl bg-white p-8 shadow-lg shadow-primary-100/40 ring-1 ring-primary-100/70 transition hover:-translate-y-1 hover:shadow-xl"
+                variants={fadeInUp}
+                whileHover={{ y: -6 }}
+                className="group flex h-full flex-col rounded-3xl border border-white/10 bg-surfaceElevated/70 p-8 shadow-xl shadow-primary-500/10 backdrop-blur"
               >
                 <div className="flex items-start justify-between gap-5">
                   <div>
-                    <h3 className="font-display text-2xl text-dark group-hover:text-primary-700">
+                    <h3 className="font-display text-2xl text-white transition group-hover:text-primary-200">
                       {project.title}
                     </h3>
-                    <p className="mt-2 text-sm text-slate-600">{project.description}</p>
+                    <p className="mt-2 text-sm text-slate-300">{project.description}</p>
                   </div>
-                  <span className="rounded-full bg-primary-50 px-3 py-1 text-xs font-semibold text-primary-700">
+                  <span className="rounded-full bg-primary-500/15 px-3 py-1 text-xs font-semibold text-primary-100">
                     {project.tags[0]}
                   </span>
                 </div>
-                <ul className="mt-6 space-y-3 text-sm text-slate-600">
+                <ul className="mt-6 space-y-3 text-sm text-slate-300">
                   {project.highlights.map((highlight) => (
                     <li key={highlight} className="flex items-start gap-3">
-                      <span className="mt-1 text-lg text-primary-500">☆</span>
+                      <span className="mt-1 text-lg text-primary-200">☆</span>
                       <span>{highlight}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-700">
+                <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-100">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="rounded-full bg-primary-100 px-3 py-1">
+                    <span key={tag} className="rounded-full bg-white/5 px-3 py-1">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-primary-700">
+                <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-primary-100">
                   {project.link ? <SocialLink link={project.link} /> : null}
                   {project.repo ? <SocialLink link={project.repo} /> : null}
                 </div>
-              </article>
+              </motion.article>
             ))}
-          </div>
+          </motion.div>
+        </SectionWrapper>
+
+        <SectionWrapper
+          id="certificaciones"
+          eyebrow="Aprendizaje continuo"
+          title="Certificaciones relevantes"
+          description="Formación complementaria que refuerza mi enfoque backend y manejo de versiones."
+        >
+          <motion.div
+            className="grid gap-6 md:grid-cols-2"
+            variants={staggerChildren}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {certifications.map((cert) => (
+              <motion.div
+                key={cert.title}
+                variants={fadeInUp}
+                whileHover={{ y: -6 }}
+                className="glass-panel border border-white/10 p-6"
+              >
+                <h3 className="font-display text-lg text-white">{cert.title}</h3>
+                <p className="mt-2 text-sm text-primary-100">
+                  {cert.issuer} · {cert.date}
+                </p>
+                {cert.credentialId ? (
+                  <p className="mt-2 text-xs text-slate-400">ID: {cert.credentialId}</p>
+                ) : null}
+                {cert.link ? (
+                  <div className="mt-4">
+                    <SocialLink link={cert.link} />
+                  </div>
+                ) : null}
+              </motion.div>
+            ))}
+          </motion.div>
         </SectionWrapper>
 
         <SectionWrapper
           id="contacto"
           eyebrow="Contacto"
-          title="Construyamos algo juntos"
-          description="¿Buscas a alguien que aporte energía, técnicas modernas y capacidad de aprendizaje rápido a tu equipo? Hablemos."
+          title="Construyamos algo poderoso"
+          description="¿Te interesa integrar APIs robustas o necesitas apoyo en despliegues backend? Estoy listo para aportar."
         >
-          <div className="grid gap-8 rounded-3xl bg-white p-8 shadow-xl shadow-primary-100/50 ring-1 ring-primary-100/80 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="space-y-6">
-              <p className="text-base text-slate-600">
-                Estoy listo para aportar en prácticas pre profesionales, proyectos de
-                consultoría tecnológica o iniciativas freelance. Me comprometo con
-                procesos transparentes, feedback constante y resultados que aporten valor.
-              </p>
-              <div className="space-y-3 text-sm text-slate-600">
-                <div className="flex items-center gap-3">
-                  <span className="text-lg text-primary-500">✉️</span>
-                  <a
-                    href={`mailto:${profile.contact.email}`}
-                    className="font-medium text-primary-700 hover:underline"
-                  >
-                    {profile.contact.email}
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-lg text-primary-500">📱</span>
-                  <span className="font-medium text-dark">{profile.contact.phone}</span>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-3">
+          <div className="grid gap-8 rounded-3xl border border-white/10 bg-surface/80 p-10 shadow-glow-surface backdrop-blur lg:grid-cols-[1.1fr_0.9fr]">
+            <motion.div
+              className="space-y-6 text-sm text-slate-300"
+              variants={staggerChildren}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <motion.p variants={fadeInUp}>
+                Busco oportunidades para unirme a equipos ágiles, impulsar productos digitales
+                y seguir creciendo como backend developer. Me motiva aprender, documentar y
+                entregar valor continuo.
+              </motion.p>
+              <motion.div variants={fadeInUp} className="space-y-3">
+                {email ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg text-primary-200">✉️</span>
+                    <a
+                      href={`mailto:${email}`}
+                      className="font-medium text-primary-100 transition hover:text-white"
+                    >
+                      {email}
+                    </a>
+                  </div>
+                ) : null}
+                {phone ? (
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg text-primary-200">📱</span>
+                    <span className="font-medium text-primary-100">{phone}</span>
+                  </div>
+                ) : null}
+              </motion.div>
+              <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
                 {profile.socials.map((social) => (
                   <SocialLink key={social.href} link={social} />
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
-            <form
+            <motion.form
               className="space-y-4"
-              action={`mailto:${profile.contact.email}`}
-              method="post"
-              encType="text/plain"
+              action={email ? `mailto:${email}` : undefined}
+              method={email ? 'post' : undefined}
+              encType={email ? 'text/plain' : undefined}
+              variants={fadeInUp}
             >
               <div>
-                <label htmlFor="nombre" className="text-sm font-medium text-dark">
+                <label htmlFor="nombre" className="text-sm font-medium text-white">
                   Nombre
                 </label>
                 <input
@@ -385,12 +528,12 @@ function App() {
                   id="nombre"
                   name="nombre"
                   placeholder="¿Cómo te llamas?"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                  className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="correo" className="text-sm font-medium text-dark">
+                <label htmlFor="correo" className="text-sm font-medium text-white">
                   Correo
                 </label>
                 <input
@@ -398,12 +541,12 @@ function App() {
                   id="correo"
                   name="correo"
                   placeholder="name@empresa.com"
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                  className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
                   required
                 />
               </div>
               <div>
-                <label htmlFor="mensaje" className="text-sm font-medium text-dark">
+                <label htmlFor="mensaje" className="text-sm font-medium text-white">
                   Mensaje
                 </label>
                 <textarea
@@ -411,30 +554,35 @@ function App() {
                   name="mensaje"
                   placeholder="Cuéntame sobre tu proyecto o la oportunidad..."
                   rows={4}
-                  className="mt-2 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                  className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
                   required
                 />
               </div>
-              <button
+              <motion.button
                 type="submit"
-                className="w-full rounded-2xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition hover:-translate-y-0.5 hover:bg-primary-700"
+                className="w-full rounded-2xl bg-primary-500 px-5 py-3 text-sm font-semibold text-white shadow-glow-primary transition hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Enviar mensaje
-              </button>
-            </form>
+              </motion.button>
+            </motion.form>
           </div>
         </SectionWrapper>
       </main>
 
-      <footer className="relative z-10 border-t border-slate-200/60 bg-white/80 py-8 backdrop-blur">
-        <div className="container flex flex-col gap-4 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} {profile.name}. Todos los derechos reservados.</p>
+      <footer className="relative z-10 border-t border-white/10 bg-black/40 py-8 backdrop-blur">
+        <div className="container flex flex-col items-start gap-4 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+          <p>
+            © {new Date().getFullYear()} {profile.name}. Construido con React, TypeScript y Tailwind
+            CSS.
+          </p>
           <div className="flex flex-wrap gap-3">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="transition hover:text-primary-700"
+                className="transition hover:text-primary-200"
               >
                 {item.label}
               </a>

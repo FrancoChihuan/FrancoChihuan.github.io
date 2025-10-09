@@ -8,6 +8,14 @@ export type SkillCategory = {
   items: string[]
 }
 
+export type Certification = {
+  title: string
+  issuer: string
+  date: string
+  credentialId?: string
+  link?: Link
+}
+
 export type Project = {
   title: string
   description: string
@@ -33,116 +41,133 @@ export type Education = {
 }
 
 export const profile = {
-  name: 'Franco Chisán',
-  role: 'Estudiante de Ingeniería de Sistemas (8vo ciclo)',
+  name: 'Franco Chihuan Sánchez',
+  role: 'Estudiante de Ingeniería de Sistemas · Backend Developer · Fundador de Train Smart',
   headline:
-    'Construyo soluciones digitales centradas en las personas y con foco en la calidad del software.',
+    'Information Systems Engineering Student | Backend Developer | Founder of Train Smart',
   summary:
-    'Me apasiona conectar la ingeniería con las necesidades del negocio. Disfruto trabajar con equipos multidisciplinarios, automatizar procesos y convertir ideas en productos funcionales con impacto.',
-  location: 'Lima, Perú',
-  availability: 'Disponible para prácticas pre profesionales y proyectos freelance.',
+    'Estudiante de Ingeniería de Sistemas con conocimientos sólidos en desarrollo backend utilizando Python (Django Rest Framework) y experiencia en tecnologías frontend como React, HTML y CSS. Manejo bases de datos relacionales (MySQL, SQL Server, Oracle) y no relacionales como MongoDB. Busco potenciar productos digitales con arquitecturas limpias y APIs seguras.',
+  location: 'Perú',
+  availability: 'En busca de oportunidades como Backend Developer junior y proyectos donde aplicar Django REST.',
   contact: {
-    email: 'tu.correo@ejemplo.com',
-    phone: '+51 900 000 000',
+    email: 'actualiza-tu-correo@ejemplo.com',
+    phone: 'Actualiza tu número',
   },
-  socials: [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    { label: 'GitHub', href: 'https://github.com/' },
-    { label: 'Correo', href: 'mailto:tu.correo@ejemplo.com' },
-  ] satisfies Link[],
+  socials: [{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' }] satisfies Link[],
+  languages: ['Español (nativo)', 'Inglés intermedio'],
 }
 
 export const skills: SkillCategory[] = [
   {
-    title: 'Frontend',
-    items: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Vitest', 'Redux Toolkit'],
-  },
-  {
     title: 'Backend',
-    items: ['Node.js', 'Express', 'REST APIs', 'PostgreSQL', 'MongoDB'],
+    items: [
+      'Python',
+      'Django REST Framework',
+      'Diseño de APIs',
+      'Autenticación y seguridad',
+      'Arquitectura limpia',
+    ],
   },
   {
-    title: 'Herramientas',
-    items: ['Git & GitHub', 'Figma', 'Docker', 'Notion', 'Jira'],
+    title: 'Frontend',
+    items: ['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'UI responsiva'],
   },
   {
-    title: 'Competencias',
-    items: ['Análisis de requerimientos', 'Diseño de arquitectura', 'Scrum', 'Testing automatizado'],
+    title: 'Bases de datos',
+    items: ['MySQL', 'SQL Server', 'Oracle', 'MongoDB', 'Modelado de datos'],
+  },
+  {
+    title: 'Herramientas y prácticas',
+    items: ['Git & GitHub', 'CI/CD básico', 'AWS (fundamentos)', 'Documentación técnica', 'Trabajo en equipo'],
   },
 ]
 
 export const projects: Project[] = [
   {
-    title: 'MiUSIL Planner',
+    title: 'Train Smart',
     description:
-      'Aplicación web que integra los datos académicos de la universidad para generar horarios óptimos, recordatorios inteligentes y seguimiento de tareas.',
+      'Plataforma fitness que ayuda a deportistas aficionados a planificar entrenamientos personalizados y hacer seguimiento de métricas de desempeño.',
     highlights: [
-      'Algoritmo de compatibilidad de horarios con TypeScript y heurísticas de grafos.',
-      'Integración con calendario de Google mediante API REST y autenticación OAuth.',
-      'Diseño responsivo centrado en estudiantes que necesitan organizar su ciclo académico.',
+      'API REST construida con Django Rest Framework para gestionar rutinas, objetivos y progreso.',
+      'Integración de métricas de salud mediante formularios dinámicos y reportes descargables.',
+      'Diseño responsivo con React orientado a ofrecer una experiencia motivadora y clara.',
     ],
-    tags: ['React', 'TypeScript', 'Tailwind', 'Node.js', 'PostgreSQL'],
-    link: { label: 'Demo', href: '#' },
-    repo: { label: 'GitHub', href: '#' },
+    tags: ['Django REST', 'React', 'Tailwind CSS', 'PostgreSQL'],
+    link: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' },
   },
   {
-    title: 'Sistema de Monitoreo de Laboratorios',
+    title: 'API de reservas para laboratorios académicos',
     description:
-      'Dashboard para controlar el inventario y mantenimiento de laboratorios de cómputo, con alertas tempranas y reportes automáticos.',
+      'Servicio backend diseñado para gestionar reservas de laboratorios en la universidad, con reportes de uso y control de disponibilidad.',
     highlights: [
-      'Modelado de base de datos y endpoints REST documentados con OpenAPI.',
-      'Uso de WebSockets para actualizar en tiempo real el estado de equipos.',
-      'Automatización de reportes en PDF programados con colas de trabajos.',
+      'Endpoints REST documentados con OpenAPI y pruebas unitarias con PyTest.',
+      'Automatización de notificaciones por correo y registro de historial de uso.',
+      'Despliegue en AWS con prácticas básicas de CI/CD y monitoreo de logs.',
     ],
-    tags: ['React', 'Tailwind', 'Express', 'MongoDB', 'Socket.IO'],
+    tags: ['Django REST', 'AWS', 'CI/CD', 'MySQL'],
+    repo: { label: 'Código (privado)', href: 'https://www.linkedin.com/in/francochihuan/' },
   },
   {
-    title: 'Observatorio de Datos Públicos',
+    title: 'Dashboard de analítica deportiva',
     description:
-      'Portal de visualización de indicadores gubernamentales y económicos para analizar tendencias con gráficos interactivos.',
+      'Aplicación web que visualiza datos de entrenamiento y progreso físico para equipos universitarios.',
     highlights: [
-      'ETL con Python para limpiar datasets abiertos y cargarlos en PostgreSQL.',
-      'Consultas optimizadas y capa de API con cache en Redis.',
-      'Componentes reutilizables de visualización con D3 y Recharts.',
+      'Extracción y transformación de métricas con Python para alimentar gráficas interactivas.',
+      'Componentes reutilizables con React y Tailwind que facilitan nuevas visualizaciones.',
+      'Persistencia en MongoDB para historial de sesiones y evaluaciones comparativas.',
     ],
-    tags: ['React', 'TypeScript', 'Tailwind', 'D3', 'PostgreSQL'],
-    link: { label: 'Ver proyecto', href: '#' },
+    tags: ['React', 'Tailwind', 'MongoDB', 'Visualización de datos'],
   },
 ]
 
 export const experiences: Experience[] = [
   {
-    title: 'Líder Técnico - Proyecto Integrador',
-    organization: 'Universidad San Ignacio de Loyola',
+    title: 'Founder & Backend Developer',
+    organization: 'Train Smart',
     period: '2024 - Actualidad',
     description:
-      'Coordiné a un equipo de 5 estudiantes para construir una plataforma web que digitaliza procesos administrativos de la facultad.',
+      'Creé una plataforma de entrenamiento inteligente que promueve hábitos saludables mediante rutinas personalizadas y seguimiento de objetivos.',
     achievements: [
-      'Diseñé la arquitectura modular y definí las historias de usuario junto al Product Owner.',
-      'Organicé sprints de dos semanas, ceremonias Scrum y tableros Kanban con métricas de entrega.',
-      'Implementé pruebas automatizadas de componentes y revisión continua del código en GitHub.',
+      'Diseñé la arquitectura backend basada en Django Rest Framework y principios de APIs escalables.',
+      'Definí el modelo de datos para rutinas, métricas y progreso semanal optimizando consultas.',
+      'Dirigí pruebas con usuarios y mejoras continuas en la experiencia frontend desarrollada con React.',
     ],
   },
   {
-    title: 'Mentor Académico de Programación',
-    organization: 'Laboratorio de Innovación USIL',
+    title: 'Asistente académico y tutor',
+    organization: 'Universidad San Ignacio de Loyola',
     period: '2023 - 2024',
     description:
-      'Acompañé a estudiantes de ciclos iniciales en la construcción de proyectos web y fundamentos de estructuras de datos.',
+      'Apoyé a compañeros en cursos de programación y bases de datos, reforzando conceptos clave y buenas prácticas.',
     achievements: [
-      'Preparé sesiones hands-on sobre React, diagramas UML y buenas prácticas de versionamiento.',
-      'Desarrollé rúbricas de evaluación y guías de ejercicios reutilizables por el laboratorio.',
+      'Organicé sesiones de estudio para resolver ejercicios de SQL, estructuras de datos y POO.',
+      'Compartí guías sobre control de versiones con Git y despliegues básicos en la nube.',
     ],
   },
 ]
 
 export const education: Education = {
-  program: 'Ingeniería de Sistemas - 8vo ciclo',
+  program: 'Ingeniería de Sistemas de la Información (8.º ciclo)',
   school: 'Universidad San Ignacio de Loyola',
-  period: '2020 - Actualidad',
+  period: 'Mar 2022 - Dic 2027',
   details: [
-    'Mención destacada en cursos de Arquitectura de Software y Gestión de Proyectos.',
-    'Miembro activo del capítulo estudiantil IEEE Computer Society.',
-    'Participación en hackathons universitarios y proyectos de innovación educativa.',
+    'Integrante del equipo de futsal universitario reforzando liderazgo y disciplina.',
+    'Enfoque académico en Django REST, GitHub, bases de datos SQL y patrones de arquitectura.',
+    'Participación activa en comunidades tecnológicas y proyectos estudiantiles.',
   ],
 }
+
+export const certifications: Certification[] = [
+  {
+    title: 'Django Rest Framework - Avanzado',
+    issuer: 'Udemy',
+    date: 'Octubre 2025',
+    credentialId: 'UC-a1c08342-93ee-4c08-9fc2-a346a1a9b2b1',
+  },
+  {
+    title: 'Git + GitHub: Todo un sistema de control de versiones de cero',
+    issuer: 'Udemy',
+    date: 'Octubre 2025',
+    credentialId: 'UC-1ed70982-0d2b-444d-8c8a-ddb9990c8f0a',
+  },
+]
