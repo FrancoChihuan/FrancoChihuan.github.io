@@ -266,14 +266,14 @@ function App() {
                     {profile.languages.join(' · ')}
                   </p>
                 </div>
-                <div>
+                {/* <div>
                   <span className="text-xs font-semibold uppercase tracking-[0.35em] text-primary-200">
                     Enfoque actual
                   </span>
                   <p className="mt-2 text-sm font-medium text-white">
                     Backend con Python, despliegues en AWS y analítica deportiva aplicada.
                   </p>
-                </div>
+                </div> */}
               </motion.div>
             </motion.div>
 
@@ -378,7 +378,7 @@ function App() {
           id="proyectos"
           eyebrow="Portafolio"
           title="Proyectos que cuentan mi historia"
-          description="Casos donde apliqué Python, Django y visualización de datos para resolver necesidades reales."
+          description="Casos donde apliqué los conocimientos que he adquirido para resolver necesidades reales."
         >
           <motion.div
             className="grid gap-8 lg:grid-cols-2"
@@ -432,8 +432,9 @@ function App() {
         <SectionWrapper
           id="certificaciones"
           eyebrow="Aprendizaje continuo"
-          title="Certificaciones relevantes"
-          description="Formación complementaria que refuerza mi enfoque backend y manejo de versiones."
+          // agrega emoji
+          title="Certificaciones relevantes 🎓"
+          description="Formación complementaria que refuerza y avala mis conocimientos."
         >
           <motion.div
             className="grid gap-6 md:grid-cols-2"
@@ -469,8 +470,8 @@ function App() {
         <SectionWrapper
           id="contacto"
           eyebrow="Contacto"
-          title="Construyamos algo poderoso"
-          description="¿Te interesa integrar APIs robustas o necesitas apoyo en despliegues backend? Estoy listo para aportar."
+          title="Ponte en contacto conmigo 🚀"
+          description="Abierto a oportunidades de prácticas y proyectos de desarrollo."
         >
           <div className="grid gap-8 rounded-3xl border border-white/10 bg-surface/80 p-10 shadow-glow-surface backdrop-blur lg:grid-cols-[1.1fr_0.9fr]">
             <motion.div
@@ -481,28 +482,16 @@ function App() {
               viewport={{ once: true, amount: 0.3 }}
             >
               <motion.p variants={fadeInUp}>
-                Busco oportunidades para unirme a equipos ágiles, impulsar productos digitales
-                y seguir creciendo como backend developer. Me motiva aprender, documentar y
-                entregar valor continuo.
+                Soy estudiante de Ingeniería de Sistemas en búsqueda de una oportunidad de 
+                <strong> prácticas preprofesionales</strong> en desarrollo de software o TI.  
+                Si estás buscando a alguien responsable, con ganas de aprender y aportar desde el primer día, 
+                me encantaría conversar contigo. Puedes escribirme directamente o usar el formulario de contacto.
               </motion.p>
               <motion.div variants={fadeInUp} className="space-y-3">
-                {email ? (
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg text-primary-200">✉️</span>
-                    <a
-                      href={`mailto:${email}`}
-                      className="font-medium text-primary-100 transition hover:text-white"
-                    >
-                      {email}
-                    </a>
-                  </div>
-                ) : null}
-                {phone ? (
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg text-primary-200">📱</span>
-                    <span className="font-medium text-primary-100">{phone}</span>
-                  </div>
-                ) : null}
+                <div className="flex flex-wrap gap-3 text-sm text-slate-300">
+                  <InfoChip label={`${email}`}/>
+                  <InfoChip label={`${phone}`}/>
+                </div>
               </motion.div>
               <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
                 {profile.socials.map((social) => (
@@ -551,7 +540,7 @@ function App() {
                 <textarea
                   id="mensaje"
                   name="mensaje"
-                  placeholder="Cuéntame sobre tu proyecto o la oportunidad..."
+                  placeholder="Cuéntame sobre la oportunidad..."
                   rows={4}
                   className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
                   required

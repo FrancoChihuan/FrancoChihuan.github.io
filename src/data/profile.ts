@@ -46,14 +46,18 @@ export const profile = {
   headline:
     'Information Systems Engineering Student | Backend Developer | Founder of Train Smart',
   summary:
-    'Estudiante de Ingeniería de Sistemas con conocimientos sólidos en desarrollo backend utilizando Python (Django Rest Framework) y experiencia en tecnologías frontend como React, HTML y CSS. Manejo bases de datos relacionales (MySQL, SQL Server, Oracle) y no relacionales como MongoDB. Busco potenciar productos digitales con arquitecturas limpias y APIs seguras.',
+    'Tengo conocimientos sólidos en desarrollo backend utilizando Python (Django Rest Framework) y experiencia en tecnologías frontend como React, HTML y CSS. Manejo bases de datos relacionales (MySQL, SQL Server, Oracle) y no relacionales como MongoDB. Busco potenciar productos digitales con arquitecturas limpias y APIs seguras.',
   location: 'Lima, Perú',
   availability: 'En busca de prácticas pre profesionales como Backend Developer junior.',
   contact: {
     email: 'francochisan31@gmail.com',
     phone: '+51 904 487 497',
   },
-  socials: [{ label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' }] satisfies Link[],
+  socials: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' }, 
+    { label: 'GitHub', href: 'https://github.com/FrancoChihuan' },
+    { label: 'Curriculum Vitae', href: '' },
+  ] satisfies Link[],
   languages: ['Inglés B1 - B2', 'Español (nativo)'],
 }
 
@@ -77,7 +81,7 @@ export const skills: SkillCategory[] = [
   },
   {
     title: 'Herramientas y prácticas',
-    items: ['Git & GitHub', 'Docker', 'Documentación técnica', 'Trabajo en equipo'],
+    items: ['Git & GitHub', 'Docker', 'Cloud', 'Documentación técnica', 'Trabajo en equipo'],
   },
 ]
 
@@ -92,7 +96,7 @@ export const projects: Project[] = [
       'Diseño responsivo con React orientado a ofrecer una experiencia motivadora y clara.',
     ],
     tags: ['Django REST', 'React', 'Tailwind CSS', 'PostgreSQL'],
-    link: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' },
+    link: { label: 'GitHub', href: 'https://github.com/FrancoChihuan' },
   },
   {
     title: 'API de reservas para laboratorios académicos',
@@ -104,7 +108,8 @@ export const projects: Project[] = [
       'Despliegue en AWS con prácticas básicas de CI/CD y monitoreo de logs.',
     ],
     tags: ['Django REST', 'AWS', 'CI/CD', 'MySQL'],
-    repo: { label: 'Código (privado)', href: 'https://www.linkedin.com/in/francochihuan/' },
+    // repo: { label: 'Código (privado)', href: 'https://www.linkedin.com/in/francochihuan/' },
+    link: { label: 'GitHub', href: 'https://github.com/FrancoChihuan' },
   },
   {
     title: 'Dashboard de analítica deportiva',
@@ -116,6 +121,7 @@ export const projects: Project[] = [
       'Persistencia en MongoDB para historial de sesiones y evaluaciones comparativas.',
     ],
     tags: ['React', 'Tailwind', 'MongoDB', 'Visualización de datos'],
+    link: { label: 'GitHub', href: 'https://github.com/FrancoChihuan' },
   },
 ]
 
@@ -123,7 +129,7 @@ export const experiences: Experience[] = [
   {
     title: 'Founder & Backend Developer',
     organization: 'Train Smart',
-    period: '2024 - Actualidad',
+    period: '2022 - Actualidad',
     description:
       'Creé una plataforma de entrenamiento inteligente que promueve hábitos saludables mediante rutinas personalizadas y seguimiento de objetivos.',
     achievements: [
@@ -162,29 +168,34 @@ export const certifications: Certification[] = [
     issuer: 'Udemy',
     date: 'Octubre 2025',
     credentialId: 'UC-a1c08342-93ee-4c08-9fc2-a346a1a9b2b1',
+    link: { label: 'Mostrar credencial', href: 'https://www.udemy.com/certificate/UC-a1c08342-93ee-4c08-9fc2-a346a1a9b2b1/'},
   },
   {
     title: 'Git + GitHub: Todo un sistema de control de versiones de cero',
     issuer: 'Udemy',
     date: 'Octubre 2025',
     credentialId: 'UC-1ed70982-0d2b-444d-8c8a-ddb9990c8f0a',
+    link: { label: 'Mostrar credencial', href: 'https://www.udemy.com/certificate/UC-1ed70982-0d2b-444d-8c8a-ddb9990c8f0a/'},
   },
   {
     title: 'CLOUD COMPUTING: AWS - AZURE - GOOGLE CLOUD',
     issuer: 'Universidad Nacional de Ingeniería',
     date: 'Febrero 2025',
     credentialId: '017 - 0016705',
+    link: { label: 'Mostrar credencial', href: 'https://certificados.uni.edu.pe/verificador/search.php?cert_id=cert_62dee2ab1099c4d3012583294d87a66a'},
   },
   {
     title: 'SQL SERVER - Base de datos',
     issuer: 'Universidad Nacional de Ingeniería',
     date: 'Enero 2025',
     credentialId: '017 - 0020988',
+    link: { label: 'Mostrar credencial', href: 'https://certificados.uni.edu.pe/verificador/search.php?cert_id=cert_0123e50419e90c9f1d8a77cb42b28b38'},
   },
   {
     title: 'Machine Learning con Python',
     issuer: 'Universidad Nacional de Ingeniería',
     date: 'Febrero 2025',
     credentialId: '017 -0028828',
+    link: { label: 'Mostrar credencial', href: 'https://certificados.uni.edu.pe/verificador/search.php?cert_id=cert_e304e21bbe941740518340b5dbb611ec'},
   },
 ]
