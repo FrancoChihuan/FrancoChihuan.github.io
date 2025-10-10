@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { useState, type ReactNode } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   certifications,
   education,
@@ -20,6 +20,21 @@ const navItems = [
   { label: 'Contacto', href: '#contacto' },
 ]
 
+const MenuToggleIcon = ({ open }: { open: boolean }) => (
+  <span className="relative block h-4 w-5">
+    <span
+      className={`absolute inset-x-0 top-0 h-0.5 rounded-full bg-white transition-transform duration-200 ${
+        open ? 'translate-y-2 rotate-45' : ''
+      }`}
+    />
+    <span
+      className={`absolute inset-x-0 bottom-0 h-0.5 rounded-full bg-white transition-transform duration-200 ${
+        open ? '-translate-y-2 -rotate-45' : ''
+      }`}
+    />
+  </span>
+)
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0 },
@@ -34,17 +49,50 @@ const staggerChildren = {
   },
 }
 
-const SocialLink = ({ link }: { link: Link }) => (
-  <motion.a
-    href={link.href}
-    className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-primary-400/60 hover:bg-primary-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300"
-    whileHover={{ y: -3 }}
-    whileTap={{ scale: 0.96 }}
-  >
-    <span>{link.label}</span>
-    <span aria-hidden="true">↗</span>
-  </motion.a>
-)
+const mobileMenuVariants = {
+  hidden: { opacity: 0, y: -12, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.22,
+      staggerChildren: 0.07,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.97,
+    transition: { duration: 0.18 },
+  },
+}
+
+const mobileMenuItem = {
+  hidden: { opacity: 0, y: 10 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+}
+
+const SocialLink = ({ link }: { link: Link }) => {
+  const targetProps = link.newTab
+    ? { target: '_blank', rel: 'noreferrer' as const }
+    : {}
+  const downloadProp = link.download ? { download: '' } : {}
+
+  return (
+    <motion.a
+      href={link.href}
+      {...targetProps}
+      {...downloadProp}
+      className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-100 transition hover:border-primary-400/60 hover:bg-primary-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300"
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.96 }}
+    >
+      <span>{link.label}</span>
+      <span aria-hidden="true">{link.download ? '⬇' : '↗'}</span>
+    </motion.a>
+  )
+}
 
 const InfoChip = ({ label }: { label: string }) => (
   <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-primary-200">
@@ -87,14 +135,10 @@ const SectionWrapper = ({
 )
 
 function App() {
-  const email =
-    profile.contact.email && !profile.contact.email.includes('actualiza')
-      ? profile.contact.email
-      : undefined
-  const phone =
-    profile.contact.phone && !profile.contact.phone.toLowerCase().includes('actualiza')
-      ? profile.contact.phone
-      : undefined
+  const [menuOpen, setMenuOpen] = useState(false)
+  const email = profile.contact.email?.trim() ? profile.contact.email : undefined
+  const phone = profile.contact.phone?.trim() ? profile.contact.phone : undefined
+  const formAction = 'https://formsubmit.co/francochisan31@gmail.com'
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-dark text-slate-200">
@@ -106,32 +150,90 @@ function App() {
         <div className="absolute bottom-10 left-1/3 h-64 w-64 rounded-full bg-blue-900/25 blur-3xl" />
       </div>
 
-      <header id="inicio" className="relative z-10">
-        <div className="container flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
-          <motion.span
-            className="font-display text-2xl font-semibold text-white"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {profile.name}
-          </motion.span>
-          <motion.nav
-            className="flex flex-wrap justify-end gap-3 text-sm font-medium text-slate-300"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            {navItems.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-primary-400/70 hover:bg-primary-400/10 hover:text-white"
+      <AnimatePresence>
+        {menuOpen ? (
+          <motion.div
+            key="mobile-overlay"
+            className="fixed inset-0 z-40 bg-black/70 backdrop-blur-xs md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        ) : null}
+      </AnimatePresence>
+
+      <header id="inicio" className="relative z-50">
+        <div className="container flex flex-col gap-4 py-6">
+          <div className="flex items-center justify-between">
+            <motion.span
+              className="hidden font-display text-2xl font-semibold text-white md:inline"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              {profile.name}
+            </motion.span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setMenuOpen((prev) => !prev)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-primary-400/70 hover:text-primary-200 md:hidden"
+                aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+                aria-expanded={menuOpen}
+                aria-controls="mobile-navigation"
               >
-                {item.label}
-              </a>
-            ))}
-          </motion.nav>
+                <MenuToggleIcon open={menuOpen} />
+              </button>
+              <motion.nav
+                className="hidden items-center justify-end gap-3 text-sm font-medium text-slate-300 md:flex"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+              >
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-primary-400/70 hover:bg-primary-400/10 hover:text-white"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </motion.nav>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {menuOpen ? (
+              <motion.nav
+                key="mobile-navigation"
+                id="mobile-navigation"
+                className="md:hidden"
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={mobileMenuVariants}
+              >
+                <motion.ul
+                  className="glass-panel border border-white/10 p-4"
+                  variants={staggerChildren}
+                >
+                  {navItems.map((item) => (
+                    <motion.li key={item.href} variants={mobileMenuItem}>
+                      <a
+                        href={item.href}
+                        className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-500/20"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    </motion.li>
+                  ))}
+                </motion.ul>
+              </motion.nav>
+            ) : null}
+          </AnimatePresence>
         </div>
 
         <div className="container relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface/70 px-8 py-14 shadow-[0_40px_120px_rgba(29,95,255,0.24)] backdrop-blur">
@@ -164,7 +266,7 @@ function App() {
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.97 }}
                 >
-                  Ver proyectos destacados
+                  Ver mis proyectos
                   <span aria-hidden="true">→</span>
                 </motion.a>
                 <motion.a
@@ -489,8 +591,8 @@ function App() {
               </motion.p>
               <motion.div variants={fadeInUp} className="space-y-3">
                 <div className="flex flex-wrap gap-3 text-sm text-slate-300">
-                  <InfoChip label={`${email}`}/>
-                  <InfoChip label={`${phone}`}/>
+                  {email ? <InfoChip label={`${email}`} /> : null}
+                  {phone ? <InfoChip label={`${phone}`} /> : null}
                 </div>
               </motion.div>
               <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
@@ -502,11 +604,13 @@ function App() {
 
             <motion.form
               className="space-y-4"
-              action={email ? `mailto:${email}` : undefined}
-              method={email ? 'post' : undefined}
-              encType={email ? 'text/plain' : undefined}
+              action={formAction}
+              method="POST"
               variants={fadeInUp}
             >
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_subject" value="Nuevo mensaje desde el portafolio" />
+              {email ? <input type="hidden" name="_cc" value={email} /> : null}
               <div>
                 <label htmlFor="nombre" className="text-sm font-medium text-white">
                   Nombre

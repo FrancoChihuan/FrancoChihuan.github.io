@@ -1,6 +1,8 @@
 export type Link = {
   label: string
   href: string
+  newTab?: boolean
+  download?: boolean
 }
 
 export type SkillCategory = {
@@ -48,15 +50,15 @@ export const profile = {
   summary:
     'Tengo conocimientos sólidos en desarrollo backend utilizando Python (Django Rest Framework) y experiencia en tecnologías frontend como React, HTML y CSS. Manejo bases de datos relacionales (MySQL, SQL Server, Oracle) y no relacionales como MongoDB. Busco potenciar productos digitales con arquitecturas limpias y APIs seguras.',
   location: 'Lima, Perú',
-  availability: 'En busca de prácticas pre profesionales como Backend Developer junior.',
+  availability: 'En busca de prácticas pre profesionales como Developer junior.',
   contact: {
     email: 'francochisan31@gmail.com',
     phone: '+51 904 487 497',
   },
   socials: [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/' }, 
-    { label: 'GitHub', href: 'https://github.com/FrancoChihuan' },
-    { label: 'Curriculum Vitae', href: '' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/', newTab: true },
+    { label: 'GitHub', href: 'https://github.com/FrancoChihuan', newTab: true },
+    { label: 'Curriculum Vitae', href: '/miPDF/Curriculum_Vitae.pdf', download: true },
   ] satisfies Link[],
   languages: ['Inglés B1 - B2', 'Español (nativo)'],
 }
