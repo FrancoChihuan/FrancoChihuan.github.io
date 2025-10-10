@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type ReactNode, type FormEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   certifications,
@@ -136,9 +136,38 @@ const SectionWrapper = ({
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const email = profile.contact.email?.trim() ? profile.contact.email : undefined
   const phone = profile.contact.phone?.trim() ? profile.contact.phone : undefined
-  const formAction = 'https://formsubmit.co/francochisan31@gmail.com'
+  const formEndpoint = 'https://formsubmit.co/ajax/francochisan31@gmail.com'
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    formData.append('_captcha', 'false')
+    formData.append('_subject', 'Nuevo mensaje desde el portafolio')
+    if (email) {
+      formData.append('_cc', email)
+    }
+
+    try {
+      setFormStatus('loading')
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+      })
+      if (!response.ok) {
+        throw new Error('Request failed')
+      }
+      setFormStatus('success')
+      form.reset()
+    } catch (error) {
+      console.error('Form submission error', error)
+      setFormStatus('error')
+    }
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-dark text-slate-200">
@@ -523,8 +552,12 @@ function App() {
                   ))}
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-primary-100">
-                  {project.link ? <SocialLink link={project.link} /> : null}
-                  {project.repo ? <SocialLink link={project.repo} /> : null}
+                  {project.link ? (
+                    <SocialLink link={{ ...project.link, newTab: true }} />
+                  ) : null}
+                  {project.repo ? (
+                    <SocialLink link={{ ...project.repo, newTab: true }} />
+                  ) : null}
                 </div>
               </motion.article>
             ))}
@@ -597,20 +630,19 @@ function App() {
               </motion.div>
               <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
                 {profile.socials.map((social) => (
-                  <SocialLink key={social.href} link={social} />
+                  <SocialLink
+                    key={social.href}
+                    link={{ ...social, newTab: true }}
+                  />
                 ))}
               </motion.div>
             </motion.div>
 
             <motion.form
               className="space-y-4"
-              action={formAction}
-              method="POST"
+              onSubmit={handleSubmit}
               variants={fadeInUp}
             >
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_subject" value="Nuevo mensaje desde el portafolio" />
-              {email ? <input type="hidden" name="_cc" value={email} /> : null}
               <div>
                 <label htmlFor="nombre" className="text-sm font-medium text-white">
                   Nombre
@@ -652,12 +684,31 @@ function App() {
               </div>
               <motion.button
                 type="submit"
-                className="w-full rounded-2xl bg-primary-500 px-5 py-3 text-sm font-semibold text-white shadow-glow-primary transition hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300"
+                disabled={formStatus === 'loading'}
+                className="w-full rounded-2xl bg-primary-500 px-5 py-3 text-sm font-semibold text-white shadow-glow-primary transition hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 disabled:cursor-not-allowed disabled:opacity-70"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Enviar mensaje
+                {formStatus === 'loading' ? 'Enviando...' : 'Enviar mensaje'}
               </motion.button>
+              {formStatus === 'success' ? (
+                <motion.p
+                  className="text-sm font-medium text-primary-100"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  ¡Gracias! Ya recibí tu mensaje y te responderé pronto. 🚀
+                </motion.p>
+              ) : null}
+              {formStatus === 'error' ? (
+                <motion.p
+                  className="text-sm font-medium text-red-300"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Ocurrió un error al enviar el mensaje. Intenta nuevamente en unos minutos.
+                </motion.p>
+              ) : null}
             </motion.form>
           </div>
         </SectionWrapper>
