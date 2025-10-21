@@ -26,6 +26,7 @@ function App() {
   const email = profile.contact.email?.trim() ? profile.contact.email : undefined
   const phone = profile.contact.phone?.trim() ? profile.contact.phone : undefined
   const formEndpoint = 'https://formsubmit.co/ajax/francochisan31@gmail.com'
+  const [showScrollTop, setShowScrollTop] = useState(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -65,6 +66,18 @@ function App() {
     }
   }, [menuOpen])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 320)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-dark text-slate-200">
       <div className="pointer-events-none absolute inset-0 -z-20 bg-grid-pattern bg-[length:22px_22px] opacity-40" />
@@ -93,6 +106,26 @@ function App() {
       </main>
 
       <Footer navItems={navItems} />
+      <button
+        type="button"
+        onClick={handleScrollTop}
+        className={`fixed bottom-6 right-5 z-[160] inline-flex h-12 w-12 items-center justify-center rounded-full border border-primary-300/70 bg-primary-500 text-lg font-semibold text-white shadow-glow-primary transition duration-200 hover:scale-105 hover:shadow-[0_12px_30px_rgba(26,95,255,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-200 md:bottom-8 md:right-10 ${
+          showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
+        }`}
+        aria-label="Ir al inicio"
+      >
+        <svg
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2.2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+      </button>
     </div>
   )
 }
