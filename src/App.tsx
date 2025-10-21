@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { profile } from './data/profile'
 import {
   AboutSection,
@@ -55,6 +55,16 @@ function App() {
       setFormStatus('error')
     }
   }
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow
+    }
+  }, [menuOpen])
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-dark text-slate-200">

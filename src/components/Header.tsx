@@ -15,28 +15,32 @@ type HeaderProps = {
   navItems: NavItem[]
 }
 
-const mobileMenuVariants = {
-  hidden: { opacity: 0, y: -12, scale: 0.97 },
+const mobilePanelVariants = {
+  hidden: { x: '100%' },
   visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.22,
-      staggerChildren: 0.07,
-    },
+    x: 0,
+    transition: { duration: 0.28, ease: [0.16, 1, 0.3, 1] as const },
   },
   exit: {
-    opacity: 0,
-    y: -10,
-    scale: 0.97,
-    transition: { duration: 0.18 },
+    x: '100%',
+    transition: { duration: 0.24, ease: [0.37, 0, 0.63, 1] as const },
   },
 }
 
-const mobileMenuItem = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.18 } },
+const mobileListVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+}
+
+const mobileListItem = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.2, ease: [0.16, 1, 0.3, 1] as const },
+  },
 }
 
 const MenuToggleIcon = ({ open }: { open: boolean }) => (
@@ -60,12 +64,86 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
       {menuOpen ? (
         <motion.div
           key="mobile-overlay"
-          className="fixed inset-0 z-40 bg-black/70 backdrop-blur-xs md:hidden"
+          className="fixed inset-0 z-[200] bg-black/90 md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setMenuOpen(false)}
         />
+      ) : null}
+    </AnimatePresence>
+    <AnimatePresence>
+      {menuOpen ? (
+        <motion.aside
+          key="mobile-panel"
+          className="fixed inset-0 z-[210] flex h-full w-full flex-col overflow-y-auto bg-dark px-6 py-8 text-white shadow-xl transition-transform duration-300 ease-out md:hidden"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={mobilePanelVariants}
+          id="mobile-navigation"
+        >
+          <div className="flex items-center justify-between">
+            <span className="font-display text-xl font-semibold">{profile.name}</span>
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-lg transition hover:border-primary-300 hover:text-primary-100"
+              aria-label="Cerrar menú"
+            >
+              X
+            </button>
+          </div>
+          <a
+            href="#contacto"
+            onClick={() => setMenuOpen(false)}
+            className="mt-8 inline-flex items-center justify-center rounded-full border border-primary-300/70 bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-primary transition hover:-translate-y-0.5 hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-200"
+          >
+            ¡Hablemos!
+          </a>
+          <motion.ul
+            className="mt-10 flex flex-col gap-5 text-base font-semibold text-slate-100"
+            variants={mobileListVariants}
+          >
+            {navItems.map((item) => (
+              <motion.li key={item.href} variants={mobileListItem}>
+                <a
+                  href={item.href}
+                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left transition hover:border-primary-400/70 hover:bg-primary-500/10"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="text-primary-300">—</span>
+                  <span>{item.label}</span>
+                </a>
+              </motion.li>
+            ))}
+          </motion.ul>
+          <div className="mt-auto space-y-5 pt-12 text-sm text-slate-300">
+            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+              <span className="text-2xl text-primary-200">💬</span>
+              <div>
+                <p className="font-semibold text-white">Contacto directo</p>
+                <p>{profile.contact.email}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm">
+              <span className="text-2xl text-primary-200">📞</span>
+              <span>{profile.contact.phone}</span>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {profile.socials.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-200 transition hover:border-primary-300 hover:text-primary-100"
+                >
+                  {social.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </motion.aside>
       ) : null}
     </AnimatePresence>
 
@@ -84,7 +162,9 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
             <button
               type="button"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-primary-400/70 hover:text-primary-200 md:hidden"
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-primary-400/70 hover:text-primary-200 md:hidden ${
+                menuOpen ? 'opacity-0 pointer-events-none' : ''
+              }`}
               aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
               aria-expanded={menuOpen}
               aria-controls="mobile-navigation"
@@ -110,36 +190,6 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
           </div>
         </div>
 
-        <AnimatePresence>
-          {menuOpen ? (
-            <motion.nav
-              key="mobile-navigation"
-              id="mobile-navigation"
-              className="md:hidden"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={mobileMenuVariants}
-            >
-              <motion.ul
-                className="glass-panel border border-white/10 p-4"
-                variants={staggerChildren}
-              >
-                {navItems.map((item) => (
-                  <motion.li key={item.href} variants={mobileMenuItem}>
-                    <a
-                      href={item.href}
-                      className="block rounded-2xl px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary-500/20"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {item.label}
-                    </a>
-                  </motion.li>
-                ))}
-              </motion.ul>
-            </motion.nav>
-          ) : null}
-        </AnimatePresence>
       </div>
 
       <div className="container relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface/70 px-8 py-14 shadow-[0_40px_120px_rgba(29,95,255,0.24)] backdrop-blur">
