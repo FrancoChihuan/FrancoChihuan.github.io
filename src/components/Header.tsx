@@ -237,16 +237,8 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
             </div>
             <div className="flex flex-col items-center gap-4 md:flex-row md:justify-center md:gap-4">
               <motion.a
-                href="#contacto"
-                className="md:order-1 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:w-auto md:max-w-none"
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.97 }}
-              >
-                Contactame
-              </motion.a>
-              <motion.a
                 href="#proyectos"
-                className="md:order-2 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:w-auto md:max-w-none"
+                className="order-1 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-glow-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:order-2 md:w-auto md:max-w-none"
                 animate={{ y: [0, -6, 0] }}
                 transition={{
                   duration: 1.6,
@@ -262,9 +254,17 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
                 <span aria-hidden="true">→</span>
               </motion.a>
               <motion.a
+                href="#contacto"
+                className="order-2 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:order-1 md:w-auto md:max-w-none"
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                Contactame
+              </motion.a>
+              <motion.a
                 href="/miPDF/Curriculum_Vitae.pdf"
                 download
-                className="md:order-3 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:w-auto md:max-w-none"
+                className="order-3 inline-flex w-full max-w-[220px] items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-primary-300 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-300 md:order-3 md:w-auto md:max-w-none"
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.97 }}
               >
