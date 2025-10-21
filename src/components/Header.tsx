@@ -59,7 +59,50 @@ const MenuToggleIcon = ({ open }: { open: boolean }) => (
 )
 
 const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
-  <>
+  <header id="inicio" className="relative z-50">
+    <div className="fixed inset-x-0 top-0 z-[180] border-b border-white/10 bg-dark/80 backdrop-blur md:bg-transparent md:border-none">
+      <div className="container flex items-center justify-between py-6">
+        <motion.span
+          className="font-display text-2xl font-semibold text-white md:text-2xl"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {profile.name}
+        </motion.span>
+        <div className="flex items-center gap-3">
+          <motion.nav
+            className="hidden items-center justify-end gap-3 text-sm font-medium text-slate-300 md:flex"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-primary-400/70 hover:bg-primary-400/10 hover:text-white"
+              >
+                {item.label}
+              </a>
+            ))}
+          </motion.nav>
+          <button
+            type="button"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-primary-400/70 hover:text-primary-200 md:hidden ${
+              menuOpen ? 'opacity-0 pointer-events-none' : ''
+            }`}
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+          >
+            <MenuToggleIcon open={menuOpen} />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div className="h-[92px] md:h-0" />
     <AnimatePresence>
       {menuOpen ? (
         <motion.div
@@ -146,53 +189,7 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
         </motion.aside>
       ) : null}
     </AnimatePresence>
-
-    <header id="inicio" className="relative z-50">
-      <div className="container flex flex-col gap-4 py-6">
-        <div className="flex items-center justify-between">
-          <motion.span
-            className="hidden font-display text-2xl font-semibold text-white md:inline"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {profile.name}
-          </motion.span>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setMenuOpen((prev) => !prev)}
-              className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition hover:border-primary-400/70 hover:text-primary-200 md:hidden ${
-                menuOpen ? 'opacity-0 pointer-events-none' : ''
-              }`}
-              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-navigation"
-            >
-              <MenuToggleIcon open={menuOpen} />
-            </button>
-            <motion.nav
-              className="hidden items-center justify-end gap-3 text-sm font-medium text-slate-300 md:flex"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-            >
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 transition hover:border-primary-400/70 hover:bg-primary-400/10 hover:text-white"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </motion.nav>
-          </div>
-        </div>
-
-      </div>
-
-      <div className="container relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface/70 px-8 py-14 shadow-[0_40px_120px_rgba(29,95,255,0.24)] backdrop-blur">
+    <div className="container relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-surface/70 px-8 py-14 shadow-[0_40px_120px_rgba(29,95,255,0.24)] backdrop-blur">
         <div className="pointer-events-none absolute -left-10 top-16 h-48 w-48 rounded-full bg-primary-500/40 blur-3xl" />
         <div className="pointer-events-none absolute -right-8 top-6 h-32 w-32 rounded-full bg-primary-700/30 blur-3xl" />
         <div className="pointer-events-none absolute bottom-4 left-1/2 h-24 w-24 -translate-x-1/2 rounded-full bg-primary-400/35 blur-2xl" />
@@ -289,7 +286,6 @@ const Header = ({ menuOpen, setMenuOpen, navItems }: HeaderProps) => (
         </motion.div>
       </div>
     </header>
-  </>
 )
 
 export default Header
