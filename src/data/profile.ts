@@ -153,6 +153,30 @@ export const experiences: Experience[] = [
       'Compartí guías sobre control de versiones con Git y despliegues básicos en la nube.',
     ],
   },
+  {
+    title: 'Practicante de Desarrollo Web',
+    organization: 'Agencia Digital Innovatech',
+    period: '2024',
+    description:
+      'Implementé funcionalidades frontend en un e-commerce regional optimizando tiempos de carga y experiencia de usuario.',
+    achievements: [
+      'Integré componentes en React con Tailwind y Vite reduciendo en 30% el tiempo de entrega de features.',
+      'Configuré pipelines CI/CD básicos en GitHub Actions para build y despliegues automatizados.',
+      'Colaboré con diseñadores y QA para definir criterios de aceptación y asegurar accesibilidad AA.',
+    ],
+  },
+  {
+    title: 'Freelance Backend Developer',
+    organization: 'Proyectos independientes',
+    period: '2021 - 2023',
+    description:
+      'Diseñé APIs REST para startups locales enfocadas en gestión de inventario y reservas, con despliegues en AWS.',
+    achievements: [
+      'Modelé bases de datos relacionales y no relacionales asegurando integridad y escalabilidad.',
+      'Implementé autenticación JWT y roles personalizados garantizando seguridad y auditoría.',
+      'Documenté endpoints con OpenAPI y generé colecciones de pruebas automatizadas en Postman.',
+    ],
+  },
 ]
 
 export const education: Education = {

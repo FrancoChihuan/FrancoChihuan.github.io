@@ -24,17 +24,10 @@ const ProjectsSection = () => (
           whileHover={{ y: -6 }}
           className="group glass-panel border border-white/10 p-8 transition hover:border-primary-500/30 hover:bg-primary-500/10 backdrop-blur"
         >
-          <div className="flex items-start justify-between gap-5">
-            <div>
-              <h3 className="font-display text-2xl text-white transition group-hover:text-primary-200">
-                {project.title}
-              </h3>
-              <p className="mt-2 text-sm text-slate-300">{project.description}</p>
-            </div>
-            <span className="rounded-full bg-primary-500/15 px-3 py-1 text-xs font-semibold text-primary-100">
-              {project.tags[0]}
-            </span>
-          </div>
+          <h3 className="font-display text-2xl text-white transition group-hover:text-primary-200">
+            {project.title}
+          </h3>
+          <p className="mt-2 text-sm text-slate-300">{project.description}</p>
           <ul className="mt-6 space-y-3 text-sm text-slate-300">
             {project.highlights.map((highlight) => (
               <li key={highlight} className="flex items-start gap-3">
@@ -43,13 +36,7 @@ const ProjectsSection = () => (
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex flex-wrap gap-2 text-xs font-medium text-primary-100">
-            {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-white/5 px-3 py-1">
-                {tag}
-              </span>
-            ))}
-          </div>
+        
           <div className="mt-6 flex flex-wrap gap-3 text-sm font-semibold text-primary-100">
             {project.link ? <SocialLink link={{ ...project.link, newTab: true }} /> : null}
             {project.repo ? <SocialLink link={{ ...project.repo, newTab: true }} /> : null}

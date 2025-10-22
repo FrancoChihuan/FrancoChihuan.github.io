@@ -11,7 +11,7 @@ const ExperienceSection = () => (
     description="Lidero iniciativas que unen tecnología y bienestar, y apoyo a pares para elevar el nivel técnico del equipo."
   >
     <motion.div
-      className="space-y-6"
+      className="grid gap-6 md:grid-cols-2"
       variants={staggerChildren}
       initial="hidden"
       whileInView="visible"
@@ -19,16 +19,14 @@ const ExperienceSection = () => (
     >
       {experiences.map((experience) => (
         <motion.article
-          key={experience.title}
+          key={`${experience.title}-${experience.period}`}
           variants={fadeInUp}
           whileHover={{ y: -4 }}
-          className="glass-panel border border-white/10 p-8"
+          className="glass-panel flex h-full flex-col border border-white/10 p-8"
         >
-          <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
-            <div>
-              <h3 className="font-display text-xl text-white">{experience.title}</h3>
-              <p className="text-sm font-medium text-primary-100">{experience.organization}</p>
-            </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="font-display text-xl text-white">{experience.title}</h3>
+            <p className="text-sm font-medium text-primary-100">{experience.organization}</p>
             <span className="text-sm font-medium text-slate-400">{experience.period}</span>
           </div>
           <p className="mt-4 text-base text-slate-300">{experience.description}</p>
