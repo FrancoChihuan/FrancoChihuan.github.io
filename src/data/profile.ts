@@ -131,50 +131,53 @@ export const projects: Project[] = [
 
 export const experiences: Experience[] = [
   {
-    title: 'Founder & Backend Developer',
-    organization: 'Train Smart',
+    title: 'Negocio Propio - Train Smart',
+    organization: 'Fundador, Gestor y Desarrollador Principal',
     period: '2022 - Actualidad',
     description:
-      'Creé una plataforma de entrenamiento inteligente que promueve hábitos saludables mediante rutinas personalizadas y seguimiento de objetivos.',
+      'Fundé el negocio a los 18 años, consolidando una marca de coaching fitness y nutrición personalizada que ha atendido a más de 1600 clientes de manera online y presencial. Diseñé el sitio web del negocio con React, Vite y TailwindCSS. Actualmente lidero un equipo de coaches y nutricionistas, garantizando un servicio personalizado y resultados visibles para los clientes.',
+    achievements: [ //agrega achievements reales
+      'Diseñé y desarrollé un sitio web responsivo que mejoró la experiencia del usuario y aumentó las conversiones.',
+      'Incrementé la base de clientes en un 30% en el último año mediante campañas de marketing digital.',
+      'Desarrollé un sistema de seguimiento de progreso para los clientes, mejorando la retención en un 25%.',
+    ],
+  },
+  {
+    title: 'Freelancer - Landing Page',
+    organization: 'Multiservicios Tecniconf',
+    period: '2025',
+    description: // florea mas en la descripcion
+      'Diseñé y desarrollé una landing page para presentación de servicios y captación de leads. Estructura moderna y Responsiva. Colaboré estrechamente con el cliente para asegurar que el diseño y las funcionalidades cumplieran con sus expectativas y necesidades comerciales. Además, implementé herramientas de análisis para monitorear el tráfico y el comportamiento de los usuarios en el sitio.',
     achievements: [
-      'Diseñé la arquitectura backend basada en Django Rest Framework y principios de APIs escalables.',
-      'Definí el modelo de datos para rutinas, métricas y progreso semanal optimizando consultas.',
-      'Dirigí pruebas con usuarios y mejoras continuas en la experiencia frontend desarrollada con React.',
+      'Integré componentes en React con Tailwind y Vite resultando en una web rápida y atractiva.',
+      'Implementé un formulario de contacto para mejorar la captación de leads.',
+      'Pixeles de Meta y Google Analytics implementados para seguimiento de usuarios.',
+    ],
+  },
+  {
+    title: 'Freelance - Portafolios Web',
+    organization: 'Portafolios web para estudiantes universitarios',
+    period: '2024 - Actualidad',
+    description:
+      'Diseñé y desarrollé portafolios web personalizados para compañeros universitarios que buscaban proyectar una imagen más profesional en su presentación laboral.',
+    achievements: [
+      'Desarrollé portafolios con React, Vite y TailwindCSS, adaptados a las necesidades de cada estudiante.',
+      'Asesoré sobre mejores prácticas de diseño y usabilidad web.',
+      'Implementé formularios de contacto y enlaces a redes sociales para mejorar la interacción con potenciales empleadores.',
+      'Recibí feedback positivo que destacó la profesionalidad y funcionalidad de los portafolios entregados.',
     ],
   },
   {
     title: 'Asistente académico y tutor',
     organization: 'Universidad San Ignacio de Loyola',
-    period: '2023 - 2024',
+    period: '2023 - Actualidad',
     description:
-      'Apoyé a compañeros en cursos de programación y bases de datos, reforzando conceptos clave y buenas prácticas.',
+      'Brindé apoyo académico a estudiantes de ciclos inferiores en cursos clave como Estructuras de Datos, Programación Orientada a Objetos y Bases de Datos. Organicé sesiones de estudio y talleres prácticos para reforzar conceptos complejos, utilizando ejemplos reales y ejercicios interactivos.',
     achievements: [
       'Organicé sesiones de estudio para resolver ejercicios de SQL, estructuras de datos y POO.',
       'Compartí guías sobre control de versiones con Git y despliegues básicos en la nube.',
-    ],
-  },
-  {
-    title: 'Practicante de Desarrollo Web',
-    organization: 'Agencia Digital Innovatech',
-    period: '2024',
-    description:
-      'Implementé funcionalidades frontend en un e-commerce regional optimizando tiempos de carga y experiencia de usuario.',
-    achievements: [
-      'Integré componentes en React con Tailwind y Vite reduciendo en 30% el tiempo de entrega de features.',
-      'Configuré pipelines CI/CD básicos en GitHub Actions para build y despliegues automatizados.',
-      'Colaboré con diseñadores y QA para definir criterios de aceptación y asegurar accesibilidad AA.',
-    ],
-  },
-  {
-    title: 'Freelance Backend Developer',
-    organization: 'Proyectos independientes',
-    period: '2021 - 2023',
-    description:
-      'Diseñé APIs REST para startups locales enfocadas en gestión de inventario y reservas, con despliegues en AWS.',
-    achievements: [
-      'Modelé bases de datos relacionales y no relacionales asegurando integridad y escalabilidad.',
-      'Implementé autenticación JWT y roles personalizados garantizando seguridad y auditoría.',
-      'Documenté endpoints con OpenAPI y generé colecciones de pruebas automatizadas en Postman.',
+      'Fomenté un ambiente colaborativo que mejoró el rendimiento académico del grupo.',
+      'Recibí reconocimiento por parte de profesores y estudiantes por mi dedicación y claridad en las explicaciones.',
     ],
   },
 ]
