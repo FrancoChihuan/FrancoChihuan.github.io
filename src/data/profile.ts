@@ -67,9 +67,11 @@ export const skills: SkillCategory[] = [
   {
     title: 'Backend',
     items: [
-      'Django REST Framework',
+      'DjangoRF',
       'Node.js',
-      'Autenticación y seguridad',
+      'Autenticación',
+      'APIs RESTful',
+      'Seguridad',
       'Arquitectura limpia',
     ],
   },
@@ -83,7 +85,7 @@ export const skills: SkillCategory[] = [
   },
   {
     title: 'Herramientas y prácticas',
-    items: ['Git & GitHub', 'Docker', 'Cloud', 'Documentación técnica', 'Trabajo en equipo'],
+    items: ['Git & GitHub', 'Docker', 'Cloud', 'Documentación', 'Trabajo en equipo'],
   },
 ]
 
