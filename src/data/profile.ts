@@ -58,7 +58,7 @@ export const profile = {
   socials: [
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/francochihuan/', newTab: true },
     { label: 'GitHub', href: 'https://github.com/FrancoChihuan', newTab: true },
-    { label: 'Curriculum Vitae', href: '/miPDF/Curriculum_Vitae.pdf', download: true },
+    { label: 'Currículum', href: '/miPDF/currículum_franco_chihuan_s.pdf', download: true },
   ] satisfies Link[],
   languages: ['Inglés B1 - B2', 'Español (nativo)'],
 }
