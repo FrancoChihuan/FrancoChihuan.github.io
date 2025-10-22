@@ -128,13 +128,6 @@ const MobileMenu = ({ navItems, onClose, open }: { navItems: NavItem[]; onClose:
             ))}
           </motion.ul>
           <div className="mt-auto space-y-5 pt-12 text-sm text-slate-300">
-            <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
-              <span className="text-2xl text-primary-200">💬</span>
-              <div>
-                <p className="font-semibold text-white">Contacto directo</p>
-                <p>{profile.contact.email}</p>
-              </div>
-            </div>
             <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm">
               <span className="text-2xl text-primary-200">📞</span>
               <span>{profile.contact.phone}</span>

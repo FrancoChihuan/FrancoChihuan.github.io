@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-  AboutSection,
   CertificationsSection,
   ContactSection,
   ExperienceSection,
@@ -8,6 +7,7 @@ import {
   Hero,
   Navbar,
   ProjectsSection,
+  EducationSection,
   ScrollTopButton,
   SkillsSection,
 } from './components'
@@ -17,9 +17,10 @@ import type { NavItem } from './types/navigation'
 
 const navItems: NavItem[] = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Habilidades', href: '#habilidades' },
   { label: 'Experiencia', href: '#experiencia' },
   { label: 'Proyectos', href: '#proyectos' },
+  { label: 'Formación', href: '#educacion' },
+  { label: 'Habilidades', href: '#habilidades' },
   { label: 'Certificaciones', href: '#certificaciones' },
   { label: 'Contacto', href: '#contacto' },
 ]
@@ -43,10 +44,10 @@ function App() {
       <Hero />
 
       <main className="relative z-10 space-y-24 pb-32 pt-16">
-        <AboutSection />
-        <SkillsSection />
         <ExperienceSection />
         <ProjectsSection />
+        <EducationSection />
+        <SkillsSection />
         <CertificationsSection />
         <ContactSection />
       </main>
