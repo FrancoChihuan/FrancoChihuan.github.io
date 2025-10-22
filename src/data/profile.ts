@@ -148,7 +148,7 @@ export const experiences: Experience[] = [
     period: '2022 - Actualidad',
     description:
       'Fundé el negocio a los 18 años, consolidando una marca de coaching fitness y nutrición personalizada que ha atendido a más de 1600 clientes de manera online y presencial. Diseñé el sitio web del negocio con React, Vite y TailwindCSS. Actualmente lidero un equipo de coaches y nutricionistas, garantizando un servicio personalizado y resultados visibles para los clientes.',
-    achievements: [ //agrega achievements reales
+    achievements: [ 
       'Diseñé y desarrollé un sitio web responsivo que mejoró la experiencia del usuario y aumentó las conversiones.',
       'Incrementé la base de clientes en un 30% en el último año mediante campañas de marketing digital.',
       'Desarrollé un sistema de seguimiento de progreso para los clientes, mejorando la retención en un 25%.',
@@ -162,13 +162,13 @@ export const experiences: Experience[] = [
       },
       {
         label: 'Instagram',
-        href: 'https://www.instagram.com/trainsmart.pe',
+        href: 'https://www.instagram.com/trainsmartpe',
         icon: 'instagram',
         newTab: true,
       },
       {
         label: 'Catálogo',
-        href: 'https://wa.me/51904487497',
+        href: 'https://wa.me/c/51986537841',
         icon: 'whatsapp',
         newTab: true,
       },
@@ -188,7 +188,7 @@ export const experiences: Experience[] = [
     actions: [
       {
         label: 'Ver landing page',
-        href: 'https://example.com/landing-tecniconf',
+        href: 'https://www.tecniconf.com',
         icon: 'globe',
         newTab: true,
       },
