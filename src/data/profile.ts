@@ -27,12 +27,24 @@ export type Project = {
   repo?: Link
 }
 
+export type ExperienceActionIcon =
+  | 'globe'
+  | 'instagram'
+  | 'whatsapp'
+  | 'external'
+  | 'folder'
+
+export type ExperienceAction = Link & {
+  icon: ExperienceActionIcon
+}
+
 export type Experience = {
   title: string
   organization: string
   period: string
   description: string
   achievements: string[]
+  actions?: ExperienceAction[]
 }
 
 export type Education = {
@@ -141,6 +153,26 @@ export const experiences: Experience[] = [
       'Incrementé la base de clientes en un 30% en el último año mediante campañas de marketing digital.',
       'Desarrollé un sistema de seguimiento de progreso para los clientes, mejorando la retención en un 25%.',
     ],
+    actions: [
+      {
+        label: 'Sitio web',
+        href: 'https://trainsmart.pe',
+        icon: 'globe',
+        newTab: true,
+      },
+      {
+        label: 'Instagram',
+        href: 'https://www.instagram.com/trainsmart.pe',
+        icon: 'instagram',
+        newTab: true,
+      },
+      {
+        label: 'Catálogo',
+        href: 'https://wa.me/51904487497',
+        icon: 'whatsapp',
+        newTab: true,
+      },
+    ],
   },
   {
     title: 'Freelancer - Landing Page',
@@ -152,6 +184,14 @@ export const experiences: Experience[] = [
       'Integré componentes en React con Tailwind y Vite resultando en una web rápida y atractiva.',
       'Implementé un formulario de contacto para mejorar la captación de leads.',
       'Pixeles de Meta y Google Analytics implementados para seguimiento de usuarios.',
+    ],
+    actions: [
+      {
+        label: 'Ver landing page',
+        href: 'https://example.com/landing-tecniconf',
+        icon: 'globe',
+        newTab: true,
+      },
     ],
   },
   {
@@ -165,6 +205,13 @@ export const experiences: Experience[] = [
       'Asesoré sobre mejores prácticas de diseño y usabilidad web.',
       'Implementé formularios de contacto y enlaces a redes sociales para mejorar la interacción con potenciales empleadores.',
       'Recibí feedback positivo que destacó la profesionalidad y funcionalidad de los portafolios entregados.',
+    ],
+    actions: [
+      {
+        label: 'Ver portafolios',
+        href: '#proyectos',
+        icon: 'folder',
+      },
     ],
   },
   {

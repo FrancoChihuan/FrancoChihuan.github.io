@@ -33,4 +33,51 @@ const ChatBubbleLeftRightIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export { SparklesIcon, GlobeAltIcon, ChatBubbleLeftRightIcon }
+const CameraIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h3l1.5-2h3L15.5 6h2A2.5 2.5 0 0 1 20 8.5v7A2.5 2.5 0 0 1 17.5 18h-11A2.5 2.5 0 0 1 4 15.5z" />
+    <circle cx="12" cy="12" r="3.5" />
+    <path d="M17 9h0.01" />
+  </svg>
+)
+
+const InstagramIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <rect x="4" y="4" width="16" height="16" rx="5" />
+    <circle cx="12" cy="12" r="3.5" />
+    <circle cx="16" cy="8" r="0.7" />
+  </svg>
+)
+
+const WhatsappIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M4.5 19l.9-3.4a8 8 0 1 1 3 3z" />
+    <path d="M9 9.5c0 2.5 3.5 5 5 5" />
+    <path d="M13 13l1.3-.2L15 14" />
+  </svg>
+)
+
+const ArrowUpRightIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M7 17l10-10" />
+    <path d="M13 7h4v4" />
+  </svg>
+)
+
+const FolderIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M4 8V6.5A1.5 1.5 0 0 1 5.5 5h3.3A2 2 0 0 1 10.4 5.8l1.1 1.4H18a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+    <path d="M4 9.5h16" />
+  </svg>
+)
+
+export {
+  SparklesIcon,
+  GlobeAltIcon,
+  ChatBubbleLeftRightIcon,
+  CameraIcon,
+  InstagramIcon,
+  WhatsappIcon,
+  ArrowUpRightIcon,
+  FolderIcon,
+}
