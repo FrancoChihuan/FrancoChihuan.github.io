@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { profile, skills } from '../data/profile'
 import { fadeInUp, staggerChildren } from './animations'
 import { SectionWrapper } from './common'
@@ -51,47 +51,109 @@ const LanguageIcon = ({ language }: { language: string }) => (
   </span>
 )
 
-const SkillsSection = () => (
-  <SectionWrapper
-    id="habilidades"
-    eyebrow="Stack principal"
-    title="Tecnologías y habilidades que domino"
-    description="Un stack que combina diseño de APIs, bases de datos robustas y experiencias frontend modernas."
-  >
+const SkillsSection = () => {
+  const categories = [...skills, languagesCategory]
+  const carouselRef = useRef<HTMLDivElement | null>(null)
+  const mobileCategories =
+    categories.length > 1
+      ? [categories[categories.length - 1], ...categories, categories[0]]
+      : categories
+
+  useEffect(() => {
+    const carousel = carouselRef.current
+    if (!carousel) return
+    const firstRealCard = carousel.querySelector('[data-role="skill-card"][data-index="0"]') as
+      | HTMLElement
+      | null
+    const totalCards = mobileCategories.length
+
+    if (firstRealCard) {
+      carousel.scrollTo({ left: firstRealCard.offsetLeft, behavior: 'instant' as ScrollBehavior })
+    }
+
+    const handleScroll = () => {
+      const scrollLeft = carousel.scrollLeft
+      const totalWidth = carousel.scrollWidth
+      const viewportWidth = carousel.clientWidth
+      if (totalCards <= 2) return
+
+      if (scrollLeft <= 0) {
+        carousel.scrollLeft = totalWidth - 2 * viewportWidth
+      } else if (scrollLeft >= totalWidth - viewportWidth) {
+        carousel.scrollLeft = viewportWidth
+      }
+    }
+
+    carousel.addEventListener('scroll', handleScroll, { passive: true })
+    return () => carousel.removeEventListener('scroll', handleScroll)
+  }, [categories.length])
+
+const renderCard = (
+    category: (typeof categories)[number],
+    {
+      className = '',
+      isMobile = false,
+      index,
+    }: { className?: string; isMobile?: boolean; index?: number } = {},
+  ) => (
     <motion.div
-      className="grid gap-6 md:grid-cols-2"
-      variants={staggerChildren}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      key={category.title}
+      variants={fadeInUp}
+      whileHover={isMobile ? undefined : { y: -6 }}
+      className={`${
+        isMobile ? 'rounded-3xl border border-white/10 bg-transparent px-6 py-8' : 'glass-panel border border-white/10 px-6 py-8'
+      } ${className}`}
+      data-role="skill-card"
+      data-index={index}
     >
-      {[...skills, languagesCategory].map((category) => (
-        <motion.div
-          key={category.title}
-          variants={fadeInUp}
-          whileHover={{ y: -6 }}
-          className="glass-panel border border-white/10 px-6 py-8"
-        >
-          <h3 className="font-display text-xl text-white md:text-2xl text-center">{category.title}</h3>
-          <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-primary-100">
-            {category.items.map((item) => (
-              <div
-                key={item}
-                className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
-              >
-                {category.title === languagesCategory.title ? (
-                  <LanguageIcon language={item} />
-                ) : (
-                  <SkillIcon label={item} />
-                )}
-                <span className="text-slate-200">{item}</span>
-              </div>
-            ))}
+      <h3 className="font-display text-xl text-white md:text-2xl text-center">{category.title}</h3>
+      <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-primary-100">
+        {category.items.map((item) => (
+          <div
+            key={item}
+            className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
+          >
+            {category.title === languagesCategory.title ? (
+              <LanguageIcon language={item} />
+            ) : (
+              <SkillIcon label={item} />
+            )}
+            <span className="text-slate-200">{item}</span>
           </div>
-        </motion.div>
-      ))}
+        ))}
+      </div>
     </motion.div>
-  </SectionWrapper>
-)
+  )
+
+  return (
+    <SectionWrapper
+      id="habilidades"
+      eyebrow="Stack principal"
+      title="Tecnologías y habilidades que domino"
+      description="Un stack que combina diseño de APIs, bases de datos robustas y experiencias frontend modernas."
+    >
+      <div className="relative md:hidden">
+        <div
+          ref={carouselRef}
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
+        >
+          {mobileCategories.map((category, idx) =>
+            renderCard(category, { className: 'min-w-[75vw] snap-center border-none bg-transparent', isMobile: true, index: idx - 1 }),
+          )}
+        </div>
+      </div>
+
+      <motion.div
+        className="hidden gap-6 md:grid md:grid-cols-2"
+        variants={staggerChildren}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {categories.map((category) => renderCard(category))}
+      </motion.div>
+    </SectionWrapper>
+  )
+}
 
 export default SkillsSection
