@@ -58,10 +58,14 @@ const SkillsSection = () => {
     categories.length > 1
       ? [categories[categories.length - 1], ...categories, categories[0]]
       : categories
+  const [showIndicators, setShowIndicators] = useState(true)
+  const isInitializingRef = useRef(true)
+  const inactivityTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     const carousel = carouselRef.current
     if (!carousel) return
+    isInitializingRef.current = true
     const firstRealCard = carousel.querySelector('[data-role="skill-card"][data-index="0"]') as
       | HTMLElement
       | null
@@ -71,10 +75,24 @@ const SkillsSection = () => {
       carousel.scrollTo({ left: firstRealCard.offsetLeft, behavior: 'instant' as ScrollBehavior })
     }
 
+    const rafId = requestAnimationFrame(() => {
+      isInitializingRef.current = false
+    })
+
     const handleScroll = () => {
       const scrollLeft = carousel.scrollLeft
       const totalWidth = carousel.scrollWidth
       const viewportWidth = carousel.clientWidth
+      if (!isInitializingRef.current) {
+        setShowIndicators(false)
+        if (inactivityTimeoutRef.current !== null) {
+          window.clearTimeout(inactivityTimeoutRef.current)
+        }
+        inactivityTimeoutRef.current = window.setTimeout(() => {
+          setShowIndicators(true)
+          inactivityTimeoutRef.current = null
+        }, 2000)
+      }
       if (totalCards <= 2) return
 
       if (scrollLeft <= 0) {
@@ -85,10 +103,17 @@ const SkillsSection = () => {
     }
 
     carousel.addEventListener('scroll', handleScroll, { passive: true })
-    return () => carousel.removeEventListener('scroll', handleScroll)
-  }, [categories.length])
+    return () => {
+      cancelAnimationFrame(rafId)
+      if (inactivityTimeoutRef.current !== null) {
+        window.clearTimeout(inactivityTimeoutRef.current)
+        inactivityTimeoutRef.current = null
+      }
+      carousel.removeEventListener('scroll', handleScroll)
+    }
+  }, [categories.length, mobileCategories.length])
 
-const renderCard = (
+  const renderCard = (
     category: (typeof categories)[number],
     {
       className = '',
@@ -141,6 +166,13 @@ const renderCard = (
             renderCard(category, { className: 'min-w-[75vw] snap-center border-none bg-transparent', isMobile: true, index: idx - 1 }),
           )}
         </div>
+        {showIndicators ? (
+          <div className="mt-2 flex justify-center gap-2" aria-hidden="true">
+            <span className="h-2 w-2 rounded-full bg-white/20" />
+            <span className="h-2 w-2 rounded-full bg-white/30" />
+            <span className="h-2 w-2 rounded-full bg-white/20" />
+          </div>
+        ) : null}
       </div>
 
       <motion.div
