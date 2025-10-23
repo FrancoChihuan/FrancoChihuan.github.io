@@ -144,7 +144,7 @@ const SkillsSection = () => {
           {category.items.map((item) => (
             <div
               key={item}
-              className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
+              className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center shadow-[0_0_32px_rgba(29,95,255,0.28)] ring-1 ring-primary-500/10"
             >
               <SkillIcon label={item} />
               <span className="text-slate-200">{item}</span>
@@ -168,7 +168,7 @@ const SkillsSection = () => {
           className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {mobileCategories.map((category, idx) =>
-            renderCard(category, { className: 'min-w-[75vw] snap-center border-none bg-transparent', isMobile: true, index: idx - 1 }),
+            renderCard(category, { className: 'min-w-[75vw] snap-center', isMobile: true, index: idx - 1 }),
           )}
         </div>
         <div className="mt-3 flex justify-center gap-2" aria-hidden="true">
