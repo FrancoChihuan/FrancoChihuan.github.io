@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="katman_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 415.27 336.97">
+  <!-- Generator: Adobe Illustrator 29.3.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 151)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .07;
+      }
+
+      .st0, .st1 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        opacity: .05;
+      }
+
+      .st2 {
+        fill: url(#Adsız_degrade_4);
+      }
+
+      .st3 {
+        fill: url(#Adsız_degrade_3);
+      }
+
+      .st4 {
+        fill: url(#Adsız_degrade_2);
+      }
+    </style>
+    <linearGradient id="Adsız_degrade_4" data-name="Adsız degrade 4" x1="-17.93" y1="-1427.63" x2="125.09" y2="-1272.62" gradientTransform="translate(89.96 1371.84)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#196de5"/>
+      <stop offset="1" stop-color="#1351c8"/>
+    </linearGradient>
+    <linearGradient id="Adsız_degrade_2" data-name="Adsız degrade 2" x1="50.32" y1="-1209.26" x2="154.74" y2="-1082.19" gradientTransform="translate(89.96 1371.84)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4d9fff"/>
+      <stop offset="1" stop-color="#1667eb"/>
+    </linearGradient>
+    <linearGradient id="Adsız_degrade_3" data-name="Adsız degrade 3" x1="150.63" y1="-1171.29" x2="211.1" y2="-1070.01" gradientTransform="translate(89.96 1371.84)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#70bcfd"/>
+      <stop offset="1" stop-color="#4a9ff9"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2">
+    <g id="Layer_1-2">
+      <path class="st2" d="M16.41.72l-.04-.71C2.33-.25-5.18,16.33,4.09,26.89l124.48,141.61L275.67,1.91c-2.38-1-4.95-1.58-7.6-1.2H16.41Z"/>
+      <path class="st4" d="M346.75,79.76L282.86,7.32c-1.98-2.23-4.44-3.97-7.19-5.1l-147.09,166.61L4.49,309.45c-9.41,10.66-1.9,27.41,12.27,27.52l106.69-.07L346.75,79.76Z"/>
+      <path class="st3" d="M407.71,148.84l-60.96-69.1L123.45,336.97l146.37-.1c5.02-.42,9.69-2.74,13.05-6.51l124.84-141.54c10.08-11.42,10.08-28.56,0-39.99Z"/>
+      <path class="st1" d="M128.57,168.19L275.67,1.61c-2.4-1.03-4.99-1.57-7.6-1.6h-4.18L122,160.74l6.57,7.45Z"/>
+      <path class="st0" d="M125.3,164.8l3.27,3.72L275.67,1.91c-1.73-.7-3.54-1.16-5.4-1.35L125.3,164.8Z"/>
+    </g>
+  </g>
+</svg>

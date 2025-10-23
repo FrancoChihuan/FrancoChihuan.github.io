@@ -30,7 +30,7 @@ const ExperienceSection = () => (
       variants={staggerChildren}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.12 }}
     >
       {experiences.map((experience) => {
         const actions = experience.actions ?? []

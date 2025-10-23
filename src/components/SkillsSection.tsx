@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { profile, skills } from '../data/profile'
+import { skills } from '../data/profile'
 import { fadeInUp, staggerChildren } from './animations'
 import { SectionWrapper } from './common'
-import { ChatBubbleLeftRightIcon, GlobeAltIcon, SparklesIcon } from '../icons/heroicons'
+import { SparklesIcon } from '../icons/heroicons'
 
 const toSlug = (value: string) =>
   value
@@ -14,11 +14,6 @@ const toSlug = (value: string) =>
     .replace(/(^-|-$)/g, '')
 
 const getLogoPath = (label: string) => `/icons/${toSlug(label)}.svg`
-
-const languagesCategory = {
-  title: 'Idiomas',
-  items: profile.languages,
-}
 
 const SkillIcon = ({ label }: { label: string }) => {
   const [failed, setFailed] = useState(false)
@@ -41,18 +36,8 @@ const SkillIcon = ({ label }: { label: string }) => {
   )
 }
 
-const LanguageIcon = ({ language }: { language: string }) => (
-  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
-    {language.toLowerCase().includes('inglés') ? (
-      <GlobeAltIcon className="h-5 w-5 text-primary-200" />
-    ) : (
-      <ChatBubbleLeftRightIcon className="h-5 w-5 text-primary-200" />
-    )}
-  </span>
-)
-
 const SkillsSection = () => {
-  const categories = [...skills, languagesCategory]
+  const categories = skills
   const carouselRef = useRef<HTMLDivElement | null>(null)
   const mobileCategories =
     categories.length > 1
@@ -138,11 +123,7 @@ const SkillsSection = () => {
             key={item}
             className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
           >
-            {category.title === languagesCategory.title ? (
-              <LanguageIcon language={item} />
-            ) : (
-              <SkillIcon label={item} />
-            )}
+            <SkillIcon label={item} />
             <span className="text-slate-200">{item}</span>
           </div>
         ))}

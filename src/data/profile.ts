@@ -72,33 +72,95 @@ export const profile = {
     { label: 'GitHub', href: 'https://github.com/FrancoChihuan', newTab: true },
     { label: 'Currículum', href: '/miPDF/currículum_franco_chihuan_s.pdf', download: true },
   ] satisfies Link[],
-  languages: ['Inglés B1 - B2', 'Español (nativo)'],
+  // languages: ['Inglés B1 - B2', 'Español (nativo)'],
 }
 
 export const skills: SkillCategory[] = [
+  {
+    title: 'Lenguajes',
+    items: [
+      'Python',
+      'JavaScript',
+      'Java',
+      'C++',
+      'Php',
+      'TypeScript',
+    ],
+  },
   {
     title: 'Backend',
     items: [
       'DjangoRF',
       'Node.js',
-      'Autenticación',
-      'APIs RESTful',
+      'JSON Web Tokens',
       'Seguridad',
-      'Arquitectura limpia',
+      '.NET',
+      'Manejo de ORM',
     ],
   },
   {
     title: 'Frontend',
-    items: ['React', 'JavaScript', 'TypeScript', 'HTML', 'CSS', 'UI responsiva'],
+    items: [
+      'React',  
+      'TypeScript',
+      'TailwindCSS',
+      'HTML5',
+      'Bootstrap',
+      'Vite',
+    ],
   },
   {
     title: 'Bases de datos',
-    items: ['MySQL', 'SQL Server', 'Oracle', 'MongoDB', 'Modelado de datos'],
+    items: [
+      'MySQL', 
+      'SQL Server', 
+      'Oracle', 
+      'PostgreSQL', 
+      'MongoDB',
+      'Administración BD',
+    ],
   },
   {
-    title: 'Herramientas y prácticas',
-    items: ['Git & GitHub', 'Docker', 'Cloud', 'Documentación', 'Trabajo en equipo'],
+    title: 'Tecnologías de Desarrollo',
+    items: [
+      'GitHub', 
+      'Docker', 
+      'AWS', 
+      'Postman', 
+      'Git',
+      'Linux',
+    ],
   },
+  {
+    title: 'Idiomas',
+    items: [ 
+      'Inglés intermedio', 
+      'Español (nativo)' 
+    ],
+  },
+  {
+    title: 'Habilidades Blandas',
+    items: [
+      'Comunicación efectiva', 
+      'Trabajo en equipo',
+      'Resolución de problemas',
+      'Trabajo bajo presión',
+      'Aprendizaje rápido',
+      'Adaptabilidad',
+    ],
+  },
+  {
+    title: 'Herramientas Microsoft',
+    items: [
+      'Word', 
+      'Excel',
+      'PowerPoint',
+      'Power BI',
+      'Power Automate',
+      'Power Apps',
+    ],
+  },
+
 ]
 
 export const projects: Project[] = [
