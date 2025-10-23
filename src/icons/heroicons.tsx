@@ -71,6 +71,27 @@ const FolderIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
+const EnvelopeIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" />
+    <path d="M4 8l7.4 5a1.5 1.5 0 0 0 1.6 0L20 8" />
+  </svg>
+)
+
+const PhoneIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M6.5 3h3A1.5 1.5 0 0 1 11 4.5v2.7a1.5 1.5 0 0 1-.44 1.06L8.9 9.9a12 12 0 0 0 5.2 5.2l1.64-1.66a1.5 1.5 0 0 1 1.06-.44h2.7A1.5 1.5 0 0 1 21 14.5v3a1.5 1.5 0 0 1-1.5 1.5h-1A16 16 0 0 1 4.5 6.5v-1A1.5 1.5 0 0 1 6 4Z" />
+  </svg>
+)
+
+const ArrowDownTrayIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+    <path d="M12 3v12" />
+    <path d="M8.5 11.5L12 15l3.5-3.5" />
+    <path d="M5 16.5V18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1.5" />
+  </svg>
+)
+
 export {
   SparklesIcon,
   GlobeAltIcon,
@@ -80,4 +101,7 @@ export {
   WhatsappIcon,
   ArrowUpRightIcon,
   FolderIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  ArrowDownTrayIcon,
 }

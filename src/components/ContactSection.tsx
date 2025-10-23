@@ -2,11 +2,20 @@ import { motion } from 'framer-motion'
 import useContactForm from '../hooks/useContactForm'
 import { profile } from '../data/profile'
 import { fadeInUp, staggerChildren } from './animations'
-import { InfoChip, SectionWrapper, SocialLink } from './common'
+import { SectionWrapper } from './common'
+import { ArrowDownTrayIcon, ArrowUpRightIcon, EnvelopeIcon, PhoneIcon } from '../icons/heroicons'
 
 const ContactSection = () => {
   const email = profile.contact.email?.trim() ? profile.contact.email : undefined
   const phone = profile.contact.phone?.trim() ? profile.contact.phone : undefined
+  const socialOrder = ['LinkedIn', 'Currículum', 'GitHub']
+  const orderedList = socialOrder
+    .map((label) => profile.socials.find((social) => social.label === label))
+    .filter((social): social is (typeof profile.socials)[number] => Boolean(social))
+  const remainingSocials = profile.socials.filter(
+    (social) => !socialOrder.includes(social.label),
+  )
+  const orderedSocials = [...orderedList, ...remainingSocials]
 
   const { status, handleSubmit } = useContactForm({
     endpoint: 'https://formsubmit.co/ajax/francochisan31@gmail.com',
@@ -20,7 +29,7 @@ const ContactSection = () => {
       title="Ponte en contacto conmigo 🚀"
       description="Abierto a oportunidades de prácticas y proyectos de desarrollo."
     >
-      <div className="grid gap-8 rounded-3xl border border-white/10 bg-surface/80 p-10 shadow-glow-surface backdrop-blur lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-8 rounded-3xl border border-white/10 bg-surface/80 p-6 shadow-glow-surface backdrop-blur sm:p-8 lg:grid-cols-[1.1fr_0.9fr] lg:p-10">
         <motion.div
           className="space-y-6 text-sm text-slate-300"
           variants={staggerChildren}
@@ -28,23 +37,91 @@ const ContactSection = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
+          <motion.h3
+            variants={fadeInUp}
+            className="text-base font-semibold uppercase tracking-[0.18em] text-primary-200"
+          >
+            Disponible para prácticas preprofesionales
+          </motion.h3>
           <motion.p variants={fadeInUp}>
-            Soy estudiante de Ingeniería de Sistemas en búsqueda de una oportunidad de{' '}
-            <strong> prácticas preprofesionales</strong> en desarrollo de software o TI. Si estás
-            buscando a alguien responsable, con ganas de aprender y aportar desde el primer día, me
-            encantaría conversar contigo. Puedes escribirme directamente o usar el formulario de
-            contacto.
+            Busco activamente una oportunidad de{' '}
+            <strong>prácticas preprofesionales en desarrollo de software o TI</strong>. Si tu equipo
+            necesita a alguien comprometido, con bases sólidas y ganas de aportar desde el primer
+            día, conversemos. Puedes escribirme directamente o dejarme un mensaje en el formulario.
           </motion.p>
-          <motion.div variants={fadeInUp} className="space-y-3">
-            <div className="flex flex-wrap gap-3 text-sm text-slate-300">
-              {email ? <InfoChip label={email} /> : null}
-              {phone ? <InfoChip label={phone} /> : null}
-            </div>
+          <motion.div
+            variants={fadeInUp}
+            className="grid gap-3 text-sm text-slate-200 sm:grid-cols-2"
+          >
+            {email ? (
+              <a
+                href={`mailto:${email}`}
+                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition hover:-translate-y-0.5 hover:border-primary-400/70 hover:bg-primary-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300 sm:px-5"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-500/10 text-primary-200 transition group-hover:bg-primary-500/20 group-hover:text-primary-100">
+                  <EnvelopeIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-primary-200">
+                    Correo
+                  </span>
+                  <span className="mt-1 block text-sm font-semibold text-white">{email}</span>
+                </span>
+              </a>
+            ) : null}
+            {phone ? (
+              <a
+                href={`tel:${phone.replace(/\s+/g, '')}`}
+                className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 transition hover:-translate-y-0.5 hover:border-primary-400/70 hover:bg-primary-400/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300 sm:px-5"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-primary-500/10 text-primary-200 transition group-hover:bg-primary-500/20 group-hover:text-primary-100">
+                  <PhoneIcon className="h-5 w-5" />
+                </span>
+                <span>
+                  <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-primary-200">
+                    Teléfono
+                  </span>
+                  <span className="mt-1 block text-sm font-semibold text-white">{phone}</span>
+                </span>
+              </a>
+            ) : null}
           </motion.div>
-          <motion.div variants={fadeInUp} className="flex flex-wrap gap-3">
-            {profile.socials.map((social) => (
-              <SocialLink key={social.href} link={{ ...social, newTab: true }} />
-            ))}
+          <motion.div
+            variants={fadeInUp}
+            className="grid grid-cols-3 gap-1.5 sm:gap-3 lg:gap-4"
+          >
+            {orderedSocials.map((social) => {
+              const isDownload = Boolean(social.download)
+              const linkProps = isDownload
+                ? { download: '', target: undefined, rel: undefined }
+                : { target: '_blank', rel: 'noreferrer' as const }
+              const Icon = isDownload ? ArrowDownTrayIcon : ArrowUpRightIcon
+              const baseClasses =
+                'group flex w-full flex-col items-center justify-center gap-2 rounded-2xl border px-2 py-3 text-center text-[0.68rem] font-semibold transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-300 min-[420px]:px-3 min-[420px]:text-xs sm:px-4 sm:py-4 sm:text-sm'
+              const variantClasses = isDownload
+                ? 'border-primary-400/70 bg-gradient-to-r from-primary-500 via-primary-400 to-primary-500 text-white shadow-glow-primary hover:shadow-lg hover:shadow-primary-500/30'
+                : 'border-white/10 bg-white/5 text-slate-100 hover:border-primary-400/70 hover:bg-primary-400/10'
+
+              return (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  {...linkProps}
+                  className={`${baseClasses} ${variantClasses}`}
+                >
+                  <span
+                    className={`flex h-7 w-7 items-center justify-center rounded-full min-[420px]:h-8 min-[420px]:w-8 sm:h-10 sm:w-10 ${
+                      isDownload
+                        ? 'bg-white/20 text-white transition group-hover:bg-white/30'
+                        : 'bg-primary-500/10 text-primary-200 transition group-hover:bg-primary-500/20 group-hover:text-primary-100'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <span className="block">{social.label}</span>
+                </a>
+              )
+            })}
           </motion.div>
         </motion.div>
 
@@ -84,7 +161,13 @@ const ContactSection = () => {
               name="mensaje"
               placeholder="Cuéntame sobre la oportunidad..."
               rows={4}
-              className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
+              className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-100 transition focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-300/40"
+              style={{ minHeight: '112px' }}
+              onInput={(event) => {
+                const target = event.currentTarget
+                target.style.height = 'auto'
+                target.style.height = `${Math.max(target.scrollHeight, 112)}px`
+              }}
               required
             />
           </div>

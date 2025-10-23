@@ -127,24 +127,6 @@ const MobileMenu = ({ navItems, onClose, open }: { navItems: NavItem[]; onClose:
               </motion.li>
             ))}
           </motion.ul>
-          <div className="mt-auto space-y-5 pt-12 text-sm text-slate-300">
-            <div className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm">
-              <span className="text-2xl text-primary-200">📞</span>
-              <span>{profile.contact.phone}</span>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              {profile.socials.map((social) => (
-                <a
-                  key={social.href}
-                  href={social.href}
-                  onClick={onClose}
-                  className="rounded-full border border-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-slate-200 transition hover:border-primary-300 hover:text-primary-100"
-                >
-                  {social.label}
-                </a>
-              ))}
-            </div>
-          </div>
         </motion.aside>
       </>
     ) : null}
