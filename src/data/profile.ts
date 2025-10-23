@@ -292,13 +292,16 @@ export const experiences: Experience[] = [
 ]
 
 export const education: Education = {
-  program: 'Ingeniería de Sistemas de la Información (8.º ciclo)',
-  school: 'Universidad San Ignacio de Loyola',
-  period: 'Mar 2022 - Dic 2027',
+  program: 'Universidad San Ignacio de Loyola',
+  school: 'Ingeniería de Sistemas de la Información (8.º ciclo)',
+  period: 'Mar 2022 - Actualidad',
   details: [
     'Integrante del equipo de futsal universitario reforzando liderazgo y disciplina.',
     'Enfoque académico en Django REST, GitHub, bases de datos SQL y patrones de arquitectura.',
     'Participación activa en comunidades tecnológicas y proyectos estudiantiles.',
+    'Desarrollo de habilidades blandas como comunicación, trabajo en equipo y gestión del tiempo.',
+    'Cursos destacados: Estructuras de Datos, Programación Orientada a Objetos, Bases de Datos, Desarrollo Web Backend, Arquitectura de Software.',
+    'Ayuda académica en cursos de programación y bases de datos para estudiantes de ciclos inferiores.',
   ],
 }
 
