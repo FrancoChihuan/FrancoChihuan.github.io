@@ -43,9 +43,8 @@ const SkillsSection = () => {
     categories.length > 1
       ? [categories[categories.length - 1], ...categories, categories[0]]
       : categories
-  const [showIndicators, setShowIndicators] = useState(true)
+  const [activeIndex, setActiveIndex] = useState(0)
   const isInitializingRef = useRef(true)
-  const inactivityTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     const carousel = carouselRef.current
@@ -68,32 +67,48 @@ const SkillsSection = () => {
       const scrollLeft = carousel.scrollLeft
       const totalWidth = carousel.scrollWidth
       const viewportWidth = carousel.clientWidth
-      if (!isInitializingRef.current) {
-        setShowIndicators(false)
-        if (inactivityTimeoutRef.current !== null) {
-          window.clearTimeout(inactivityTimeoutRef.current)
-        }
-        inactivityTimeoutRef.current = window.setTimeout(() => {
-          setShowIndicators(true)
-          inactivityTimeoutRef.current = null
-        }, 2000)
-      }
       if (totalCards <= 2) return
 
       if (scrollLeft <= 0) {
         carousel.scrollLeft = totalWidth - 2 * viewportWidth
+        setActiveIndex(categories.length - 1)
+        return
       } else if (scrollLeft >= totalWidth - viewportWidth) {
         carousel.scrollLeft = viewportWidth
+        setActiveIndex(0)
+        return
       }
+
+      const centerPosition = scrollLeft + viewportWidth / 2
+      const cards = Array.from(
+        carousel.querySelectorAll<HTMLElement>('[data-role="skill-card"]'),
+      )
+      let closestIndex = 0
+      let shortestDistance = Number.POSITIVE_INFINITY
+
+      cards.forEach((card) => {
+        const datasetIndex = Number(card.dataset.index)
+        if (
+          Number.isNaN(datasetIndex) ||
+          datasetIndex < 0 ||
+          datasetIndex >= categories.length
+        ) {
+          return
+        }
+        const cardCenter = card.offsetLeft + card.clientWidth / 2
+        const distance = Math.abs(cardCenter - centerPosition)
+        if (distance < shortestDistance) {
+          shortestDistance = distance
+          closestIndex = datasetIndex
+        }
+      })
+
+      setActiveIndex(closestIndex)
     }
 
     carousel.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       cancelAnimationFrame(rafId)
-      if (inactivityTimeoutRef.current !== null) {
-        window.clearTimeout(inactivityTimeoutRef.current)
-        inactivityTimeoutRef.current = null
-      }
       carousel.removeEventListener('scroll', handleScroll)
     }
   }, [categories.length, mobileCategories.length])
@@ -105,31 +120,40 @@ const SkillsSection = () => {
       isMobile = false,
       index,
     }: { className?: string; isMobile?: boolean; index?: number } = {},
-  ) => (
-    <motion.div
-      key={category.title}
-      variants={fadeInUp}
-      whileHover={isMobile ? undefined : { y: -6 }}
-      className={`${
-        isMobile ? 'rounded-3xl border border-white/10 bg-transparent px-6 py-8' : 'glass-panel border border-white/10 px-6 py-8'
-      } ${className}`}
-      data-role="skill-card"
-      data-index={index}
-    >
-      <h3 className="font-display text-xl text-white md:text-2xl text-center">{category.title}</h3>
-      <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-primary-100">
-        {category.items.map((item) => (
-          <div
-            key={item}
-            className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
-          >
-            <SkillIcon label={item} />
-            <span className="text-slate-200">{item}</span>
-          </div>
-        ))}
-      </div>
-    </motion.div>
-  )
+  ) => {
+    const dataAttrs =
+      index === undefined ? {} : ({ 'data-index': index } as const)
+
+    return (
+      <motion.div
+        key={category.title}
+        variants={fadeInUp}
+        whileHover={isMobile ? undefined : { y: -6 }}
+        className={`${
+          isMobile
+            ? 'rounded-3xl border border-white/10 bg-transparent px-6 py-8'
+            : 'glass-panel border border-white/10 px-6 py-8'
+        } ${className}`}
+        data-role="skill-card"
+        {...dataAttrs}
+      >
+        <h3 className="font-display text-xl text-white md:text-2xl text-center">
+          {category.title}
+        </h3>
+        <div className="mt-5 grid grid-cols-2 gap-3 text-sm text-primary-100">
+          {category.items.map((item) => (
+            <div
+              key={item}
+              className="flex flex-col items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-3 text-center"
+            >
+              <SkillIcon label={item} />
+              <span className="text-slate-200">{item}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    )
+  }
 
   return (
     <SectionWrapper
@@ -141,19 +165,22 @@ const SkillsSection = () => {
       <div className="relative md:hidden">
         <div
           ref={carouselRef}
-          className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {mobileCategories.map((category, idx) =>
             renderCard(category, { className: 'min-w-[75vw] snap-center border-none bg-transparent', isMobile: true, index: idx - 1 }),
           )}
         </div>
-        {showIndicators ? (
-          <div className="mt-2 flex justify-center gap-2" aria-hidden="true">
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-            <span className="h-2 w-2 rounded-full bg-white/30" />
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-          </div>
-        ) : null}
+        <div className="mt-3 flex justify-center gap-2" aria-hidden="true">
+          {categories.map((category, index) => (
+            <span
+              key={category.title}
+              className={`h-2 rounded-full transition-all ${
+                index === activeIndex ? 'w-5 bg-white/80' : 'w-2 bg-white/25'
+              }`}
+            />
+          ))}
+        </div>
       </div>
 
       <motion.div
